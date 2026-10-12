@@ -1,0 +1,636 @@
+<title>Spark and Sketch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Andika:wght@400;700&display=swap">
+<style>
+/* Layout: a sketchbook wall — sticky-note panels with thick hand-drawn outlines, one lesson per "spread" (video · learn · play). */
+:root{
+  --paper:#f7f8fb;
+  --ink:#1f2330;
+  --muted:#525a6b;
+  --card:#ffffff;
+  --note-blue:#cfdcee;
+  --note-mint:#cdeedb;
+  --spark:#ffc83a;
+  --on-spark:#1f2330;
+  --coral:#f0604f;
+  --ok:#2f9e63;
+  --p1:#f0604f; --p2:#4f86e8; --p3:#ffc83a;
+  --grid-empty:#ffffff;
+  --line-art:#1f2330;
+  --font-display:"Gaegu","Comic Sans MS","Chalkboard SE",cursive;
+  --font-body:"Andika","Trebuchet MS",system-ui,sans-serif;
+  --radius:18px;
+  --stroke:3px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#171a23; --ink:#eef0f6; --muted:#a9b0c2; --card:#222634;
+    --note-blue:#28344c; --note-mint:#1f3d34; --spark:#ffcf4d; --coral:#ff7d6e; --ok:#55c98a;
+    --grid-empty:#2c3142; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#171a23; --ink:#eef0f6; --muted:#a9b0c2; --card:#222634;
+  --note-blue:#28344c; --note-mint:#1f3d34; --spark:#ffcf4d; --coral:#ff7d6e; --ok:#55c98a;
+  --grid-empty:#2c3142; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1080px;margin-inline:auto}
+h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(2.2rem,5vw,3.2rem)}
+h3{font-size:1.7rem}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--p2);outline-offset:3px}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+
+/* nav */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:var(--stroke) solid var(--ink);margin-inline:-16px;padding:10px 16px}
+.top .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:space-between}
+.logo{font-family:var(--font-display);font-size:1.7rem;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:6px}
+.logo svg{width:28px;height:28px}
+.top nav{display:flex;gap:4px;flex-wrap:wrap}
+.top nav a{text-decoration:none;font-weight:700;font-size:.92rem;padding:4px 10px;border-radius:999px}
+.top nav a:hover{background:var(--note-blue)}
+
+/* buttons */
+.btn{font:inherit;font-weight:700;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:var(--stroke) solid var(--ink);border-radius:999px;background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;box-shadow:3px 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.btn.primary{background:var(--spark);color:var(--on-spark)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:3px 3px 0 var(--ink)}
+
+/* hero */
+.hero{padding-block:48px 32px;display:grid;gap:28px;text-align:left}
+.hero h1{font-size:clamp(3.2rem,11vw,6.6rem);letter-spacing:-.01em}
+.hero h1 .spark{background:var(--spark);color:var(--on-spark);padding:0 .15em;border-radius:12px;display:inline-block;transform:rotate(-2deg)}
+.hero .lede{font-size:1.2rem;max-width:58ch}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.cast-row{display:flex;gap:4px;flex-wrap:wrap;align-items:flex-end}
+.cast-row svg{width:clamp(60px,11vw,96px);height:auto}
+.cast-row svg:nth-child(odd){transform:translateY(-6px) rotate(-3deg)}
+.cast-row svg:nth-child(even){transform:rotate(3deg)}
+
+/* section */
+section{padding-block:40px}
+.sec-head{display:grid;gap:8px;margin-bottom:24px;max-width:62ch}
+
+/* lesson spread */
+.lesson{border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card);padding:24px;display:grid;gap:28px;margin-bottom:40px}
+.lesson-head{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.lesson-head svg{width:84px;height:84px;flex:none}
+.lesson-head .meta{display:grid;gap:4px;min-width:0}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:999px;border:2px solid var(--ink)}
+.bubble{position:relative;background:var(--note-blue);border:var(--stroke) solid var(--ink);border-radius:22px;padding:12px 16px;font-family:var(--font-display);font-size:1.35rem;line-height:1.2;max-width:34ch}
+.lesson.mint .bubble{background:var(--note-mint)}
+
+.cols{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:760px){.cols{grid-template-columns:minmax(0,1fr)}}
+
+.video{aspect-ratio:9/16;max-width:100%;width:100%;border:var(--stroke) dashed var(--ink);border-radius:var(--radius);background:repeating-linear-gradient(-45deg,var(--note-blue) 0 14px,transparent 14px 28px);display:grid;place-items:center;text-align:center;padding:16px}
+.lesson.mint .video{background:repeating-linear-gradient(-45deg,var(--note-mint) 0 14px,transparent 14px 28px)}
+@media (max-width:760px){.video{max-width:240px;justify-self:center}}
+.video .inner{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:12px 14px;display:grid;gap:6px;justify-items:center}
+.video .play{width:48px;height:48px;border-radius:50%;border:var(--stroke) solid var(--ink);background:var(--spark);display:grid;place-items:center}
+.video small{color:var(--muted);font-size:.82rem}
+
+.learn{display:grid;gap:16px;min-width:0}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;align-items:start;counter-increment:s}
+.steps li::before{content:counter(s);width:36px;height:36px;border-radius:50%;border:var(--stroke) solid var(--ink);display:grid;place-items:center;font-family:var(--font-display);font-weight:700;font-size:1.3rem;background:var(--spark);color:var(--on-spark)}
+.steps strong{display:block}
+.make{border:2px dashed var(--ink);border-radius:14px;padding:14px 16px;display:grid;gap:4px}
+.make .eyebrow{color:var(--ink)}
+.grownups{font-size:.86rem;color:var(--muted)}
+
+/* game area */
+.game{border-top:var(--stroke) solid var(--ink);padding-top:24px;display:grid;gap:16px}
+.game-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.status{font-family:var(--font-display);font-size:1.45rem;line-height:1.2;min-height:2.4em}
+.status.good{color:var(--ok)}
+.status.bad{color:var(--coral)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* symmetry game */
+.mm-board{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,220px);gap:24px;align-items:start}
+@media (max-width:700px){.mm-board{grid-template-columns:minmax(0,1fr)}}
+.mm-gridwrap{position:relative;max-width:440px;width:100%}
+.mm-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.mm-gridwrap::after{content:"";position:absolute;top:-10px;bottom:-10px;left:calc(50% - 2px);width:4px;background:repeating-linear-gradient(var(--ink) 0 8px,transparent 8px 14px);pointer-events:none}
+.cell{aspect-ratio:1;border:2px solid var(--ink);border-radius:6px;background:var(--grid-empty);padding:0;position:relative}
+.cell.fixed{opacity:.95}
+button.cell{cursor:pointer}
+button.cell:hover{box-shadow:inset 0 0 0 3px var(--spark)}
+.cell.oops::after{content:"✕";position:absolute;inset:0;display:grid;place-items:center;font-weight:700;color:var(--ink);font-size:1.1rem}
+.cell.fixed.side{border-style:dashed}
+.swatches{display:flex;gap:10px;flex-wrap:wrap}
+.swatch{width:46px;height:46px;border-radius:50%;border:var(--stroke) solid var(--ink);cursor:pointer;padding:0;position:relative}
+.swatch[aria-pressed="true"]{box-shadow:0 0 0 4px var(--paper),0 0 0 7px var(--ink)}
+.swatch.eraser{background:var(--grid-empty);font-weight:700;font-size:.7rem;color:var(--ink)}
+.levels{display:flex;gap:8px;flex-wrap:wrap}
+.lvl{font:inherit;font-weight:700;font-size:.85rem;padding:4px 12px;border-radius:999px;border:2px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
+.lvl[aria-current="true"]{background:var(--ink);color:var(--paper)}
+.lvl.done::after{content:" ★"}
+.side-panel{display:grid;gap:16px}
+
+/* tessellation game */
+.hh-board{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:700px){.hh-board{grid-template-columns:minmax(0,1fr)}}
+.hh-svg{width:100%;max-width:340px;aspect-ratio:1;border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--note-mint)}
+.shape-pick{display:flex;gap:8px;flex-wrap:wrap}
+.shape-btn{font:inherit;font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:6px;padding:4px 12px 4px 6px;border-radius:999px;border:2px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
+.shape-btn svg{width:22px;height:22px}
+.shape-btn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.shape-btn .res{font-size:.8rem}
+.meter{height:22px;border:var(--stroke) solid var(--ink);border-radius:999px;overflow:hidden;background:var(--card);position:relative}
+.meter .fill{height:100%;background:var(--spark);transition:width .25s}
+.meter .over{position:absolute;top:0;bottom:0;right:0;background:var(--coral)}
+.meter-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.ask{border:2px dashed var(--ink);border-radius:14px;padding:14px;display:grid;gap:10px}
+.hive{font-size:.95rem}
+
+/* characters */
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.char{background:var(--note-blue);border:var(--stroke) solid var(--ink);border-radius:6px;padding:16px;display:grid;gap:6px;justify-items:start;box-shadow:4px 4px 0 var(--ink)}
+.char:nth-child(3n+2){background:var(--note-mint)}
+.char:nth-child(odd){transform:rotate(-1deg)}
+.char:nth-child(even){transform:rotate(1deg)}
+.char svg{width:96px;height:96px}
+.char h3{font-size:1.6rem}
+.char p{font-size:.92rem}
+.char .soon{font-size:.78rem;color:var(--muted)}
+
+/* book / shop / events */
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px}
+.panel{border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card);padding:24px;display:grid;gap:12px;align-content:start}
+.book-cover{aspect-ratio:4/3;max-width:100%;border:var(--stroke) solid var(--ink);border-radius:10px;background:var(--spark);display:grid;place-items:center;padding:16px;text-align:center;color:var(--on-spark)}
+.book-cover .t{font-family:var(--font-display);font-size:2.2rem;font-weight:700;line-height:1}
+.ledger{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.ledger li{display:flex;gap:10px;align-items:baseline}
+.ledger li::before{content:"";width:12px;height:12px;flex:none;border-radius:50%;border:2px solid var(--ink);background:var(--spark);transform:translateY(1px)}
+.merch{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.item{border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card);padding:14px;display:grid;gap:8px;align-content:start}
+.item .pic{aspect-ratio:1;border-radius:12px;border:2px dashed var(--ink);background:var(--note-blue);display:grid;place-items:center}
+.item:nth-child(even) .pic{background:var(--note-mint)}
+.item .pic svg{width:60%;height:auto}
+.item .price{font-size:.85rem;color:var(--muted)}
+footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24px;font-size:.9rem;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.08)}100%{transform:scale(1)}}
+.pop{animation:pop .35s ease-out}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2l3.5 9.5L29 13l-7.5 6 2.5 10-8-5.5L8 29l2.5-10L3 13l9.5-1.5z" fill="var(--spark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/></svg>Spark and Sketch</a>
+    <nav aria-label="Main">
+      <a href="#play">Play &amp; Learn</a>
+      <a href="#cast">The Kids</a>
+      <a href="#book">The Book</a>
+      <a href="#events">Events</a>
+      <a href="#shop">Shop</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero">
+    <div class="cast-row" id="heroCast" aria-hidden="true"></div>
+    <h1>STEM you can <span class="spark">draw.</span></h1>
+    <p class="lede">Spark and Sketch teaches kids ages 6 to 10 the building blocks of science, technology, engineering and math through art. Watch a short video, learn the idea, then play a game that uses it. Every lesson is free.</p>
+    <div class="ctas">
+      <a class="btn primary" href="#mirror">Play Mirror Magic</a>
+      <a class="btn" href="#honeycomb">Play Honeycomb Hunt</a>
+    </div>
+  </section>
+
+  <section id="play">
+    <div class="sec-head">
+      <span class="eyebrow">Play &amp; Learn</span>
+      <h2>Lessons you can play</h2>
+      <p>Each lesson has three parts: a one-minute video, the big idea in small steps, and a game to try it yourself. More lessons arrive with every new video.</p>
+    </div>
+
+    <!-- LESSON 1 -->
+    <article class="lesson" id="mirror">
+      <div class="lesson-head">
+        <span id="hostSpider"></span>
+        <div class="meta">
+          <span class="eyebrow">Lesson 1 · Hosted by Spider</span>
+          <h2>Mirror Magic</h2>
+          <div class="tags"><span class="tag">Symmetry</span><span class="tag">Ages 6–10</span><span class="tag">10 min</span></div>
+        </div>
+      </div>
+      <p class="bubble">“My body has a left side and a right side that match. That’s called symmetry! Can you spot it?”</p>
+
+      <div class="cols">
+        <div class="video" role="img" aria-label="Video placeholder">
+          <div class="inner">
+            <div class="play"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l11 7-11 7z" fill="var(--on-spark)"/></svg></div>
+            <strong>Video coming soon</strong>
+            <small>Spider shows the fold-and-paint trick · about 60 sec</small>
+          </div>
+        </div>
+        <div class="learn">
+          <h3>The big idea</h3>
+          <ol class="steps">
+            <li><div><strong>A line of symmetry cuts a picture into two matching halves.</strong>If you folded the picture on that line, the halves would land right on top of each other.</div></li>
+            <li><div><strong>One half is the mirror image of the other.</strong>Everything gets flipped. A spot on the far left has a twin on the far right.</div></li>
+            <li><div><strong>Count from the line.</strong>If a square is 2 steps to the left of the line, its twin is 2 steps to the right. Same row, same color.</div></li>
+          </ol>
+          <div class="make">
+            <span class="eyebrow">Make it with art</span>
+            <p>Fold a paper in half and open it. Paint blobs on one side only, fold it shut, press, and peel it open. You just made a symmetric butterfly.</p>
+          </div>
+          <p class="grownups">For grown-ups: lines of symmetry (Common Core 4.G.A.3), with an early start for grades 1–3.</p>
+        </div>
+      </div>
+
+      <div class="game" aria-labelledby="mmTitle">
+        <div class="game-head">
+          <h3 id="mmTitle">Game: Finish the picture</h3>
+          <div class="levels" id="mmLevels"></div>
+        </div>
+        <p>The left half is done. Paint the right half so it mirrors the left. Pick a color, then tap squares.</p>
+        <div class="mm-board">
+          <div class="mm-gridwrap"><div class="mm-grid" id="mmGrid"></div></div>
+          <div class="side-panel">
+            <div><span class="eyebrow">Your paint</span><div class="swatches" id="mmSwatches" style="margin-top:8px"></div></div>
+            <p class="status" id="mmStatus" aria-live="polite">Start next to the dotted line and work outward.</p>
+            <div class="row">
+              <button class="btn primary" id="mmCheck">Check it</button>
+              <button class="btn" id="mmClear">Start over</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- LESSON 2 -->
+    <article class="lesson mint" id="honeycomb">
+      <div class="lesson-head">
+        <span id="hostBee"></span>
+        <div class="meta">
+          <span class="eyebrow">Lesson 2 · Hosted by Bee</span>
+          <h2>Honeycomb Hunt</h2>
+          <div class="tags"><span class="tag">Shapes &amp; angles</span><span class="tag">Ages 7–10</span><span class="tag">15 min</span></div>
+        </div>
+      </div>
+      <p class="bubble">“Bees build with hexagons. They fit together with no gaps at all! Which other shapes can do that?”</p>
+
+      <div class="cols">
+        <div class="video" role="img" aria-label="Video placeholder">
+          <div class="inner">
+            <div class="play"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l11 7-11 7z" fill="var(--on-spark)"/></svg></div>
+            <strong>Video coming soon</strong>
+            <small>Bee traces a honeycomb · about 60 sec</small>
+          </div>
+        </div>
+        <div class="learn">
+          <h3>The big idea</h3>
+          <ol class="steps">
+            <li><div><strong>A tessellation is a pattern of shapes with no gaps and no overlaps.</strong>Floor tiles, brick walls and honeycombs are all tessellations.</div></li>
+            <li><div><strong>Look where the corners meet.</strong>All the way around one point is a full turn, which is 360 degrees (360°).</div></li>
+            <li><div><strong>The corners have to add up to exactly 360°.</strong>A hexagon corner is 120°. Three of them make 120 + 120 + 120 = 360. A perfect fit!</div></li>
+          </ol>
+          <div class="make">
+            <span class="eyebrow">Make it with art</span>
+            <p>Cut a hexagon out of a cereal box. Trace it, slide it so one edge touches, and trace again. Keep going until the page is a honeycomb, then color it in.</p>
+          </div>
+          <p class="grownups">For grown-ups: angles as parts of a 360° turn (Common Core 4.MD.C.5) and adding angles (4.MD.C.7).</p>
+        </div>
+      </div>
+
+      <div class="game" aria-labelledby="hhTitle">
+        <div class="game-head">
+          <h3 id="hhTitle">Game: Which shapes tile?</h3>
+          <span class="hive" id="hhScore"></span>
+        </div>
+        <p>Pick a shape. Add tiles around the dot and watch the corners add up. Then decide: does it tile with no gaps?</p>
+        <div class="shape-pick" id="hhShapes"></div>
+        <div class="hh-board">
+          <svg class="hh-svg" id="hhSvg" viewBox="-150 -150 300 300" role="img" aria-label="Tiles placed around a point"></svg>
+          <div class="side-panel">
+            <div>
+              <div class="meter" aria-hidden="true"><div class="fill" id="hhFill"></div><div class="over" id="hhOver"></div></div>
+              <div class="meter-label"><span>0°</span><span id="hhSum">0° of 360°</span><span>360°</span></div>
+            </div>
+            <p class="status" id="hhStatus" aria-live="polite"></p>
+            <div class="row">
+              <button class="btn primary" id="hhAdd">Add a tile</button>
+              <button class="btn" id="hhReset">Clear</button>
+            </div>
+            <div class="ask">
+              <strong id="hhQ">Does it tile with no gaps?</strong>
+              <div class="row">
+                <button class="btn" id="hhYes">Yes, it fits</button>
+                <button class="btn" id="hhNo">No, gaps or overlaps</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="panel" style="background:var(--note-blue)">
+      <span class="eyebrow">Coming next</span>
+      <h3>Beaver’s Trinket Box</h3>
+      <p>Fold six squares into a box you can decorate and keep. Kids learn how a flat pattern called a net turns into a 3D shape, then test which nets really fold into a box.</p>
+    </div>
+  </section>
+
+  <section id="cast">
+    <div class="sec-head">
+      <span class="eyebrow">The Kids</span>
+      <h2>Meet the crew</h2>
+      <p>Each kid wears a hoodie of a favorite animal, and each animal leads the lessons it knows best. Names and finished art are on the way.</p>
+    </div>
+    <div class="cast" id="castGrid"></div>
+  </section>
+
+  <section id="book">
+    <div class="split">
+      <div class="panel">
+        <span class="eyebrow">The Book</span>
+        <h2>A picture book is on the way</h2>
+        <p>The whole crew stars in our first picture book: big feelings, big speech bubbles, and a little bit of math hiding on every page.</p>
+        <div class="book-cover"><div><div class="t">Spark and Sketch</div><p>Picture book · cover coming soon</p></div></div>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">Where the money goes</span>
+        <h3>Every copy sold helps</h3>
+        <ul class="ledger">
+          <li>Makes more free lesson videos</li>
+          <li>Pays for supplies at our in-person events</li>
+          <li>Puts free copies of the book in local schools and libraries</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="events">
+    <div class="sec-head">
+      <span class="eyebrow">Events</span>
+      <h2>We teach in person, too</h2>
+      <p>Our volunteers bring lessons to fairs, libraries and classrooms. Kids leave with something they made and a STEM idea they can explain.</p>
+    </div>
+    <div class="split">
+      <div class="panel">
+        <h3>What a session looks like</h3>
+        <ul class="ledger">
+          <li>Watch a lesson video together</li>
+          <li>Build the art project with our volunteers</li>
+          <li>Play the game and take the project home</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Upcoming events</h3>
+        <p>Our event calendar is being planned. Check back soon to find us near you.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop">
+    <div class="sec-head">
+      <span class="eyebrow">Shop</span>
+      <h2>Wear the crew</h2>
+      <p>Every purchase funds free lessons. Our shop opens soon on a partner store, and these buttons will take you there.</p>
+    </div>
+    <div class="merch" id="merch"></div>
+  </section>
+
+  <footer>
+    <span>Spark and Sketch is a nonprofit teaching STEM through art.</span>
+    <span>Lessons are free, always.</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+const L = '#1f2330';
+const CAST = [
+  {id:'python', name:'Python', hood:'#7cc576', skin:'#7a4a2e', hair:'#20150f', topic:'Coding and patterns', idea:'Step-by-step instructions, like a snake moving one segment at a time.'},
+  {id:'octopus', name:'Octopus', hood:'#b48ce0', skin:'#5e3a24', hair:'#1b120c', topic:'Counting and multiplying', idea:'Eight arms make skip-counting by 8 easy.'},
+  {id:'dolphin', name:'Dolphin', hood:'#7fb4e8', skin:'#8a5634', hair:'#20150f', topic:'Sound and waves', idea:'Dolphins hear echoes. Kids draw sound waves and make music.'},
+  {id:'falcon', name:'Falcon', hood:'#c8935e', skin:'#f0c9a4', hair:'#1f1712', topic:'Angles and flight', idea:'Paper planes, wing shapes and how angles help things fly.'},
+  {id:'beaver', name:'Beaver', hood:'#9c6b45', skin:'#c98d5d', hair:'#3a2618', topic:'Building and structures', idea:'Boxes, bridges and why triangles make things strong.'},
+  {id:'spider', name:'Spider', hood:'#4d5367', skin:'#c4875a', hair:'#1b120c', topic:'Symmetry', idea:'Webs and spiders are full of matching halves.'},
+  {id:'bee', name:'Bee', hood:'#ffd23f', skin:'#efc7a0', hair:'#1f1712', topic:'Shapes and tiling', idea:'Hexagons, honeycombs and patterns with no gaps.'},
+  {id:'otter', name:'Otter', hood:'#b98b6a', skin:'#f6d6bb', hair:'#7a4b2a', topic:'Floating and sinking', idea:'Build boats that float and test how much they can carry.'}
+];
+
+function tube(d, col){ return `<path d="${d}" fill="none" stroke="${L}" stroke-width="11" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round"/>`; }
+
+function kid(c){
+  let back='', hoodX='', front='';
+  const h=c.hood;
+  switch(c.id){
+    case 'python':
+      hoodX = `<circle cx="44" cy="32" r="8" fill="#fff" stroke="${L}" stroke-width="3"/><ellipse cx="44" cy="32" rx="2" ry="5" fill="${L}"/><circle cx="76" cy="32" r="8" fill="#fff" stroke="${L}" stroke-width="3"/><ellipse cx="76" cy="32" rx="2" ry="5" fill="${L}"/><circle cx="28" cy="52" r="3" fill="${L}" opacity=".35"/><circle cx="92" cy="52" r="3" fill="${L}" opacity=".35"/>`;
+      break;
+    case 'octopus':
+      back = tube('M24 74 q-16 8 -10 24 q5 9 12 2',h)+tube('M96 74 q16 8 10 24 q-5 9 -12 2',h)+tube('M30 90 q-6 14 4 22',h)+tube('M90 90 q6 14 -4 22',h);
+      hoodX = `<circle cx="46" cy="34" r="3" fill="${L}"/><circle cx="74" cy="34" r="3" fill="${L}"/>`;
+      break;
+    case 'dolphin':
+      back = `<path d="M50 24 Q66 -2 88 12 Q74 16 72 30Z" fill="${h}" stroke="${L}" stroke-width="3" stroke-linejoin="round"/>`;
+      hoodX = `<circle cx="34" cy="48" r="3" fill="${L}"/><circle cx="86" cy="48" r="3" fill="${L}"/>`;
+      break;
+    case 'falcon':
+      back = `<path d="M24 50 Q2 34 4 12 Q20 20 34 40Z" fill="${h}" stroke="${L}" stroke-width="3" stroke-linejoin="round"/><path d="M96 50 Q118 34 116 12 Q100 20 86 40Z" fill="${h}" stroke="${L}" stroke-width="3" stroke-linejoin="round"/>`;
+      front = `<path d="M53 44 L67 44 L60 55Z" fill="#ffc83a" stroke="${L}" stroke-width="2.5" stroke-linejoin="round"/>`;
+      break;
+    case 'beaver':
+      back = `<circle cx="26" cy="30" r="12" fill="${h}" stroke="${L}" stroke-width="3"/><circle cx="94" cy="30" r="12" fill="${h}" stroke="${L}" stroke-width="3"/>`;
+      front = `<rect x="53" y="44" width="7" height="9" rx="1.5" fill="#fff" stroke="${L}" stroke-width="2.5"/><rect x="60" y="44" width="7" height="9" rx="1.5" fill="#fff" stroke="${L}" stroke-width="2.5"/>`;
+      break;
+    case 'spider':
+      back = ['M24 56 Q6 44 2 26','M22 66 Q4 62 0 48','M96 56 Q114 44 118 26','M98 66 Q116 62 120 48'].map(d=>`<path d="${d}" fill="none" stroke="${L}" stroke-width="4" stroke-linecap="round"/>`).join('');
+      hoodX = [[48,30,4],[72,30,4],[38,38,3],[82,38,3],[56,24,2.5],[64,24,2.5]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" stroke="${L}" stroke-width="1.5"/>`).join('');
+      break;
+    case 'bee':
+      back = `<path d="M46 24 Q40 8 30 4" fill="none" stroke="${L}" stroke-width="3.5" stroke-linecap="round"/><circle cx="30" cy="4" r="5" fill="${L}"/><path d="M74 24 Q80 8 90 4" fill="none" stroke="${L}" stroke-width="3.5" stroke-linecap="round"/><circle cx="90" cy="4" r="5" fill="${L}"/>`;
+      hoodX = `<path d="M24 44 Q60 22 96 44" fill="none" stroke="${L}" stroke-width="7"/><path d="M33 31 Q60 14 87 31" fill="none" stroke="${L}" stroke-width="5"/>`;
+      break;
+    case 'otter':
+      back = `<circle cx="30" cy="28" r="9" fill="${h}" stroke="${L}" stroke-width="3"/><circle cx="90" cy="28" r="9" fill="${h}" stroke="${L}" stroke-width="3"/>`;
+      hoodX = `<ellipse cx="60" cy="34" rx="7" ry="5" fill="${L}"/>`;
+      break;
+  }
+  return `<svg viewBox="-4 -6 128 128" role="img" aria-label="${c.name} kid">
+    ${back}
+    <circle cx="60" cy="62" r="42" fill="${h}" stroke="${L}" stroke-width="3.5"/>
+    ${hoodX}
+    <ellipse cx="60" cy="72" rx="29" ry="26" fill="${c.skin}" stroke="${L}" stroke-width="3"/>
+    <path d="M31 68 Q36 48 60 48 Q84 48 89 68 Q80 58 70 62 Q64 53 56 61 Q44 56 31 68Z" fill="${c.hair}"/>
+    <circle cx="50" cy="75" r="3.4" fill="${L}"/><circle cx="70" cy="75" r="3.4" fill="${L}"/>
+    <path d="M54 85 Q60 91 66 85" fill="none" stroke="${L}" stroke-width="2.8" stroke-linecap="round"/>
+    ${front}
+  </svg>`;
+}
+const byId = id => CAST.find(c=>c.id===id);
+
+document.getElementById('heroCast').innerHTML = CAST.map(kid).join('');
+document.getElementById('hostSpider').innerHTML = kid(byId('spider'));
+document.getElementById('hostBee').innerHTML = kid(byId('bee'));
+document.getElementById('castGrid').innerHTML = CAST.map(c=>`
+  <div class="char">${kid(c)}
+    <h3>${c.name}</h3>
+    <span class="eyebrow">${c.topic}</span>
+    <p>${c.idea}</p>
+    <span class="soon">Real name coming soon</span>
+  </div>`).join('');
+
+const MERCH = [
+  {name:'Crew plushies', note:'Soft hoodie kids, starting with Bee', who:'bee'},
+  {name:'Sticker sheet', note:'All eight kids, waterproof', who:'octopus'},
+  {name:'Kids’ hoodie', note:'Pick your animal ears', who:'beaver'},
+  {name:'Sketchbook', note:'Grid pages for symmetry art', who:'spider'}
+];
+document.getElementById('merch').innerHTML = MERCH.map(m=>`
+  <div class="item"><div class="pic">${kid(byId(m.who))}</div>
+    <strong>${m.name}</strong><span class="price">${m.note}</span>
+    <button class="btn" disabled>Shop opens soon</button></div>`).join('');
+
+/* ---------- Mirror Magic ---------- */
+const LEVELS = [
+  {name:'Heart', paints:{a:'--p1'}, rows:['.aa.','aaaa','aaaa','.aaa','..aa','...a']},
+  {name:'House', paints:{a:'--p3', b:'--p1', c:'--p2'}, rows:['...b','..bb','.bbb','.aaa','.aca','.aac']},
+  {name:'Butterfly', paints:{a:'--p3', b:'--p2', c:'--p1'}, rows:['b..c','bb.c','babc','bbbc','.abc','..bc']}
+];
+const LABEL = {'--p1':'Red','--p2':'Blue','--p3':'Yellow'};
+let lvl=0, brush='a', done=new Set(), right=[];
+const grid=document.getElementById('mmGrid'), st=document.getElementById('mmStatus');
+
+function resetRight(){ right = LEVELS[lvl].rows.map(()=>['.','.','.','.']); }
+function paintVar(letter){ return letter==='.' ? 'var(--grid-empty)' : `var(${LEVELS[lvl].paints[letter]})`; }
+
+function renderLevels(){
+  document.getElementById('mmLevels').innerHTML = LEVELS.map((l,i)=>`<button class="lvl ${done.has(i)?'done':''}" aria-current="${i===lvl}" data-l="${i}">${i+1}. ${l.name}</button>`).join('');
+}
+function renderSwatches(){
+  const p = LEVELS[lvl].paints;
+  if(!p[brush]) brush = Object.keys(p)[0];
+  document.getElementById('mmSwatches').innerHTML = Object.keys(p).map(k=>`<button class="swatch" style="background:var(${p[k]})" aria-label="${LABEL[p[k]]} paint" aria-pressed="${brush===k}" data-b="${k}"></button>`).join('') +
+    `<button class="swatch eraser" aria-label="Eraser" aria-pressed="${brush==='.'}" data-b=".">erase</button>`;
+}
+function renderGrid(){
+  const rows = LEVELS[lvl].rows; let h='';
+  rows.forEach((r,ri)=>{
+    for(let c=0;c<8;c++){
+      if(c<4){ h += `<div class="cell fixed" style="background:${paintVar(r[c])}"></div>`; }
+      else { const k=c-4; h += `<button class="cell" data-r="${ri}" data-k="${k}" aria-label="Row ${ri+1}, square ${c+1}" style="background:${paintVar(right[ri][k])}"></button>`; }
+    }
+  });
+  grid.innerHTML = h;
+}
+function setStatus(el,msg,cls){ el.textContent=msg; el.className='status'+(cls?' '+cls:''); }
+function loadLevel(i){ lvl=i; resetRight(); renderLevels(); renderSwatches(); renderGrid(); setStatus(st, i===0?'Start next to the dotted line and work outward.':`Level ${i+1}: the ${LEVELS[i].name.toLowerCase()}. Watch out for more colors!`); }
+
+document.getElementById('mmLevels').addEventListener('click',e=>{const b=e.target.closest('[data-l]'); if(b) loadLevel(+b.dataset.l);});
+document.getElementById('mmSwatches').addEventListener('click',e=>{const b=e.target.closest('[data-b]'); if(!b) return; brush=b.dataset.b; renderSwatches();});
+grid.addEventListener('click',e=>{
+  const b=e.target.closest('button.cell'); if(!b) return;
+  const r=+b.dataset.r,k=+b.dataset.k;
+  right[r][k] = (right[r][k]===brush) ? '.' : brush;
+  b.style.background = paintVar(right[r][k]); b.classList.remove('oops');
+});
+document.getElementById('mmCheck').addEventListener('click',()=>{
+  const rows=LEVELS[lvl].rows; let wrong=0, painted=0;
+  grid.querySelectorAll('button.cell').forEach(b=>{
+    const r=+b.dataset.r,k=+b.dataset.k, want=rows[r][3-k], got=right[r][k];
+    if(got!=='.') painted++;
+    const bad = want!==got; b.classList.toggle('oops',bad); if(bad) wrong++;
+  });
+  if(wrong===0){
+    done.add(lvl); renderLevels();
+    const next = lvl<LEVELS.length-1;
+    setStatus(st, next ? 'Perfect mirror! Tap the next level when you’re ready.' : 'You finished every picture. Spider is impressed!', 'good');
+    st.classList.add('pop');
+  } else if(painted===0){
+    setStatus(st,'Tap a square on the right side to paint it.');
+  } else {
+    setStatus(st, `${wrong} square${wrong>1?'s':''} marked with ✕ don’t match yet. Count the steps from the line.`, 'bad');
+  }
+});
+document.getElementById('mmClear').addEventListener('click',()=>loadLevel(lvl));
+loadLevel(0);
+
+/* ---------- Honeycomb Hunt ---------- */
+const SHAPES = [
+  {n:3,name:'Triangle'},{n:4,name:'Square'},{n:5,name:'Pentagon'},{n:6,name:'Hexagon'},{n:8,name:'Octagon'}
+].map(s=>({...s, angle:180*(s.n-2)/s.n, tiles:360%(180*(s.n-2)/s.n)===0}));
+let cur=3, placed=0; const answered={};
+const svg=document.getElementById('hhSvg'), hs=document.getElementById('hhStatus');
+const TILE_COLORS=['#ffc83a','#ffe08a'];
+
+function polyPts(n, startDeg){
+  const s = 135*Math.sin(Math.PI/n); let x=0,y=0,h=startDeg; const pts=[[0,0]];
+  for(let i=0;i<n-1;i++){ x+=s*Math.cos(h*Math.PI/180); y+=s*Math.sin(h*Math.PI/180); pts.push([x,y]); h+=360/n; }
+  return pts.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ');
+}
+function iconPts(n){ // small regular polygon for button icon
+  const pts=[]; for(let i=0;i<n;i++){ const a=(-90+360*i/n)*Math.PI/180; pts.push((11+9*Math.cos(a)).toFixed(1)+','+(12+9*Math.sin(a)).toFixed(1)); } return pts.join(' ');
+}
+function renderShapes(){
+  document.getElementById('hhShapes').innerHTML = SHAPES.map((s,i)=>{
+    const a=answered[i]; const res = a===undefined?'':(a?' ✓':' ✕');
+    return `<button class="shape-btn" aria-pressed="${i===cur}" data-s="${i}"><svg viewBox="0 0 22 22" aria-hidden="true"><polygon points="${iconPts(s.n)}" fill="var(--spark)" stroke="currentColor" stroke-width="2"/></svg>${s.name}<span class="res">${res}</span></button>`;
+  }).join('');
+  const right = Object.values(answered).filter(Boolean).length;
+  document.getElementById('hhScore').textContent = `Hive score: ${right} of ${SHAPES.length}`;
+}
+function arcPath(r,a1,a2){
+  const p=a=>[(r*Math.cos(a*Math.PI/180)).toFixed(1),(r*Math.sin(a*Math.PI/180)).toFixed(1)];
+  const [x1,y1]=p(a1),[x2,y2]=p(a2); const large=(a2-a1)>180?1:0;
+  return `M0,0 L${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2} Z`;
+}
+function renderBoard(){
+  const s=SHAPES[cur], sum=placed*s.angle; let h='';
+  for(let k=0;k<placed;k++){
+    const start=-90+k*s.angle, overlapping = (k+1)*s.angle>360;
+    h += `<polygon points="${polyPts(s.n,start)}" fill="${overlapping?'var(--coral)':TILE_COLORS[k%2]}" fill-opacity="${overlapping?.6:1}" stroke="${L}" stroke-width="3" stroke-linejoin="round" ${overlapping?'stroke-dasharray="8 6"':''}/>`;
+  }
+  if(placed>0 && sum<360){
+    h += `<path d="${arcPath(34,-90+sum,270)}" fill="#ffffff" fill-opacity=".85" stroke="${L}" stroke-width="2" stroke-dasharray="5 4"/>`;
+    const mid=(-90+sum+270)/2*Math.PI/180;
+    h += `<text x="${(52*Math.cos(mid)).toFixed(1)}" y="${(52*Math.sin(mid)+5).toFixed(1)}" text-anchor="middle" font-family="Andika, sans-serif" font-weight="700" font-size="15" fill="${L}">gap ${360-sum}°</text>`;
+  }
+  h += `<circle cx="0" cy="0" r="6" fill="${L}"/>`;
+  svg.innerHTML = h;
+  svg.setAttribute('aria-label', `${placed} ${s.name.toLowerCase()} tiles around a point, corners add to ${sum} degrees`);
+  document.getElementById('hhFill').style.width = Math.min(sum,360)/360*100+'%';
+  document.getElementById('hhOver').style.width = sum>360 ? ((sum-360)/360*100)+'%' : '0';
+  document.getElementById('hhSum').textContent = `${sum}° of 360°`;
+  document.getElementById('hhAdd').disabled = sum>=360;
+  const nm=s.name.toLowerCase(), eq=`${placed} × ${s.angle}° = ${sum}°.`;
+  if(placed===0) setStatus(hs,`A ${nm} corner is ${s.angle}°. Add tiles around the dot.`);
+  else if(sum<360){
+    const left=360-sum;
+    setStatus(hs, left<s.angle ? `${eq} Only ${left}° is left, but a ${nm} needs ${s.angle}°. Try adding one more!` : `${eq} ${left}° is still open.`);
+  }
+  else if(sum===360) setStatus(hs,`${eq} A perfect fit, no gaps!`,'good');
+  else setStatus(hs,`${eq} That’s more than 360°, so the tiles overlap.`,'bad');
+  document.getElementById('hhQ').textContent = `Does a ${nm} tile with no gaps?`;
+}
+document.getElementById('hhShapes').addEventListener('click',e=>{const b=e.target.closest('[data-s]'); if(!b) return; cur=+b.dataset.s; placed=0; renderShapes(); renderBoard();});
+document.getElementById('hhAdd').addEventListener('click',()=>{placed++; renderBoard();});
+document.getElementById('hhReset').addEventListener('click',()=>{placed=0; renderBoard();});
+function answer(yes){
+  const s=SHAPES[cur], correct = yes===s.tiles; answered[cur]=correct; renderShapes();
+  const why = s.tiles ? `${360/s.angle} corners of ${s.angle}° make exactly 360°.` : `${s.angle}° doesn’t go into 360° evenly, so there’s always a gap or an overlap.`;
+  const all = Object.keys(answered).length===SHAPES.length && Object.values(answered).every(Boolean);
+  setStatus(hs, correct ? (all ? `Right! ${why} You sorted every shape. Bee says buzz-tastic!` : `Right! ${why} Try another shape.`) : `Not quite. ${why} Add tiles to see it.`, correct?'good':'bad');
+  hs.classList.add('pop');
+}
+document.getElementById('hhYes').addEventListener('click',()=>answer(true));
+document.getElementById('hhNo').addEventListener('click',()=>answer(false));
+hs.addEventListener('animationend',()=>hs.classList.remove('pop'));
+st.addEventListener('animationend',()=>st.classList.remove('pop'));
+renderShapes(); renderBoard();
+})();
+</script>
