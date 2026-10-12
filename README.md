@@ -9,7 +9,7 @@ Website for Spark and Sketch, a nonprofit that teaches elementary-age kids STEM 
 
 ## Lessons so far
 1. **Mirror Magic** (the Mathematician, spider hoodie) — symmetry. Game: paint the mirror half of a picture (3 levels).
-2. **Honeycomb Hunt** (the Environmental Engineer, bee hoodie) — tessellation and 360° angles. Game: tile shapes around a point, then decide which shapes tile.
+2. **Honeycomb Hunt** (the Environmental Engineer, bee hoodie) — tessellation, 360° angles, and building with less material. Games: tile shapes around a point; then pick the hive that uses the least wax.
 
 Each lesson has a video placeholder, a 3-step lesson, an at-home art project, and a game.
 

@@ -151,6 +151,19 @@ button.cell:hover{box-shadow:inset 0 0 0 3px var(--spark)}
 .meter-label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .ask{border:2px dashed var(--ink);border-radius:14px;padding:14px;display:grid;gap:10px}
 .hive{font-size:.95rem}
+.challenge{border-top:2px dashed var(--ink);padding-top:20px;display:grid;gap:12px}
+.challenge p{max-width:68ch}
+.hives{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:560px){.hives{grid-template-columns:minmax(0,1fr)}}
+.hive-btn{font:inherit;color:var(--ink);background:var(--card);border:var(--stroke) solid var(--ink);border-radius:var(--radius);padding:10px;display:grid;gap:8px;cursor:pointer;text-align:left;box-shadow:3px 3px 0 var(--ink)}
+.hive-btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.hive-btn[aria-pressed="true"]{outline:4px solid var(--spark);outline-offset:2px}
+.hive-btn svg{width:100%;height:auto;border-radius:10px;display:block}
+.hive-btn strong{font-size:1rem}
+.wax{display:grid;gap:4px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.wax .bar{height:14px;border:2px solid var(--ink);border-radius:999px;background:var(--paper);overflow:hidden}
+.wax .bar span{display:block;height:100%;background:var(--spark);transition:width .5s}
+.hive-btn.best .wax .bar span{background:var(--ok)}
 
 /* characters */
 .cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:18px}
@@ -280,10 +293,10 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
         <div class="meta">
           <span class="eyebrow">Lesson 2 · Hosted by the Environmental Engineer</span>
           <h2>Honeycomb Hunt</h2>
-          <div class="tags"><span class="tag">Shapes &amp; angles</span><span class="tag">Ages 7–10</span><span class="tag">15 min</span></div>
+          <div class="tags"><span class="tag">Shapes &amp; angles</span><span class="tag">Environmental engineering</span><span class="tag">Ages 7–10</span><span class="tag">15 min</span></div>
         </div>
       </div>
-      <p class="bubble">“Real bees build with hexagons. They fit together with no gaps, so no space or wax gets wasted! Which other shapes can do that?”</p>
+      <p class="bubble">“Bees are nature’s engineers! They build with hexagons so no space and no wax gets wasted. How could we build like bees?”</p>
 
       <div class="cols">
         <div class="video" role="img" aria-label="Video placeholder">
@@ -299,12 +312,14 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
             <li><div><strong>A tessellation is a pattern of shapes with no gaps and no overlaps.</strong>Floor tiles, brick walls and honeycombs are all tessellations.</div></li>
             <li><div><strong>Look where the corners meet.</strong>All the way around one point is a full turn, which is 360 degrees (360°).</div></li>
             <li><div><strong>The corners have to add up to exactly 360°.</strong>A hexagon corner is 120°. Three of them make 120 + 120 + 120 = 360. A perfect fit!</div></li>
+            <li><div><strong>Bees pick the shape that wastes the least.</strong>Honeycomb walls are made of wax, and bees must eat lots of honey to make wax. Hexagons hold the same honey as triangles or squares but need less wall, so the hive saves its food.</div></li>
+            <li><div><strong>Engineers ask the bee’s question.</strong>“How do we build it with less material and less waste?” That’s why airplanes, doors and even cardboard use honeycomb shapes inside. They stay strong and light while using less stuff.</div></li>
           </ol>
           <div class="make">
             <span class="eyebrow">Make it with art</span>
-            <p>Cut a hexagon out of a cereal box. Trace it, slide it so one edge touches, and trace again. Keep going until the page is a honeycomb, then color it in.</p>
+            <p>Reuse an empty cereal box: cut out a hexagon and use it as a stencil. Trace it, slide it so one edge touches, and trace again. Keep going until the page is a honeycomb, then color it in. Bonus: count how many cells you made from one stencil and zero new cardboard.</p>
           </div>
-          <p class="grownups">For grown-ups: angles as parts of a 360° turn (Common Core 4.MD.C.5) and adding angles (4.MD.C.7).</p>
+          <p class="grownups">For grown-ups: angles as parts of a 360° turn (Common Core 4.MD.C.5), adding angles (4.MD.C.7), and comparing design solutions (NGSS 3-5-ETS1-2).</p>
         </div>
       </div>
 
@@ -335,6 +350,14 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="challenge">
+          <span class="eyebrow">Part 2 · Engineer’s challenge</span>
+          <h3>Which hive uses the least wax?</h3>
+          <p>Three shapes tile with no gaps: triangles, squares and hexagons. In each hive below, every cell holds the same amount of honey. Wax walls cost the bees honey to make. Which hive should the bees build?</p>
+          <div class="hives" id="hcHives"></div>
+          <p class="status" id="hcStatus" aria-live="polite">Tap the hive you think uses the least wax.</p>
         </div>
       </div>
     </article>
@@ -526,7 +549,7 @@ function renderLevels(){
 }
 function renderSwatches(){
   const p = LEVELS[lvl].paints;
-  if(!p[brush]) brush = Object.keys(p)[0];
+  if(brush!=='.' && !p[brush]) brush = Object.keys(p)[0];
   document.getElementById('mmSwatches').innerHTML = Object.keys(p).map(k=>`<button class="swatch" style="background:var(${p[k]})" aria-label="${LABEL[p[k]]} paint" aria-pressed="${brush===k}" data-b="${k}"></button>`).join('') +
     `<button class="swatch eraser" aria-label="Eraser" aria-pressed="${brush==='.'}" data-b=".">erase</button>`;
 }
@@ -644,5 +667,49 @@ document.getElementById('hhNo').addEventListener('click',()=>answer(false));
 hs.addEventListener('animationend',()=>hs.classList.remove('pop'));
 st.addEventListener('animationend',()=>st.classList.remove('pop'));
 renderShapes(); renderBoard();
+
+/* ---------- Engineer's challenge: least wax ---------- */
+// Every cell has the same area (576 sq units). Wax = wall length per cell, scaled so the square hive = 100.
+// Perimeter for equal area: triangle 4.56, square 4.00, hexagon 3.72  ->  114, 100, 93.
+const AREA = 576, W = 150, H = 110;
+function clipWrap(id, body){ return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><clipPath id="${id}"><rect width="${W}" height="${H}"/></clipPath></defs><rect width="${W}" height="${H}" fill="#ffd66b"/><g clip-path="url(#${id})" stroke="${L}" stroke-width="2.5" fill="none" stroke-linecap="round">${body}</g></svg>`; }
+function triHive(){
+  const s=Math.sqrt(4*AREA/Math.sqrt(3)), h=s*Math.sqrt(3)/2; let d='';
+  for(let y=0;y<=H+h;y+=h) d+=`<line x1="0" y1="${y.toFixed(1)}" x2="${W}" y2="${y.toFixed(1)}"/>`;
+  for(let k=-6;k<12;k++){ const x=k*s; d+=`<line x1="${x.toFixed(1)}" y1="0" x2="${(x+H/Math.sqrt(3)*1.2).toFixed(1)}" y2="${(H*1.2).toFixed(1)}"/><line x1="${x.toFixed(1)}" y1="0" x2="${(x-H/Math.sqrt(3)*1.2).toFixed(1)}" y2="${(H*1.2).toFixed(1)}"/>`; }
+  return clipWrap('cTri',d);
+}
+function sqHive(){
+  const s=Math.sqrt(AREA); let d='';
+  for(let x=s/2;x<W;x+=s) d+=`<line x1="${x}" y1="0" x2="${x}" y2="${H}"/>`;
+  for(let y=s/2;y<H;y+=s) d+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}"/>`;
+  return clipWrap('cSq',d);
+}
+function hexHive(){
+  const a=Math.sqrt(2*AREA/(3*Math.sqrt(3))), r3=Math.sqrt(3)*a; let d='';
+  for(let i=-1;i*1.5*a<W+a;i++) for(let j=-1;j*r3<H+r3;j++){
+    const cx=i*1.5*a, cy=j*r3+(i%2?r3/2:0);
+    const pts=[0,60,120,180,240,300].map(t=>((cx+a*Math.cos(t*Math.PI/180)).toFixed(1))+','+((cy+a*Math.sin(t*Math.PI/180)).toFixed(1))).join(' ');
+    d+=`<polygon points="${pts}"/>`;
+  }
+  return clipWrap('cHex',d);
+}
+const HIVES=[{name:'Triangle hive',wax:114,svg:triHive()},{name:'Square hive',wax:100,svg:sqHive()},{name:'Hexagon hive',wax:93,svg:hexHive()}];
+const hives=document.getElementById('hcHives'), hcs=document.getElementById('hcStatus');
+let hcPicked=null;
+function renderHives(){
+  hives.innerHTML = HIVES.map((h,i)=>`<button class="hive-btn ${hcPicked!==null&&h.wax===93?'best':''}" aria-pressed="${hcPicked===i}" data-h="${i}">
+    ${h.svg}<strong>${h.name}</strong>
+    ${hcPicked!==null ? `<div class="wax"><span>Wax used: ${h.wax}</span><div class="bar"><span style="width:${(h.wax/114*100).toFixed(0)}%"></span></div></div>` : ''}
+  </button>`).join('');
+}
+hives.addEventListener('click',e=>{
+  const b=e.target.closest('[data-h]'); if(!b) return; hcPicked=+b.dataset.h; renderHives();
+  if(HIVES[hcPicked].wax===93) setStatus(hcs,'You think like an engineer! The hexagon hive uses the least wax, so the bees save honey for food. Less material, less waste.','good');
+  else setStatus(hcs,`Good guess! Look at the wax bars: the ${HIVES[hcPicked].name.toLowerCase()} uses ${HIVES[hcPicked].wax}, but the hexagon hive uses only 93. That’s why bees build with hexagons.`);
+  hcs.classList.add('pop');
+});
+hcs.addEventListener('animationend',()=>hcs.classList.remove('pop'));
+renderHives();
 })();
 </script>
