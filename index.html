@@ -153,7 +153,10 @@ button.cell:hover{box-shadow:inset 0 0 0 3px var(--spark)}
 .hive{font-size:.95rem}
 
 /* characters */
-.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:18px}
+.char .quote{font-family:var(--font-display);font-size:1.3rem;line-height:1.15}
+.traits{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.trait{font-size:.75rem;font-weight:700;padding:1px 9px;border-radius:999px;border:2px solid var(--ink);background:var(--card)}
 .char{background:var(--note-blue);border:var(--stroke) solid var(--ink);border-radius:6px;padding:16px;display:grid;gap:6px;justify-items:start;box-shadow:4px 4px 0 var(--ink)}
 .char:nth-child(3n+2){background:var(--note-mint)}
 .char:nth-child(odd){transform:rotate(-1deg)}
@@ -220,12 +223,12 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
       <div class="lesson-head">
         <span id="hostSpider"></span>
         <div class="meta">
-          <span class="eyebrow">Lesson 1 · Hosted by Spider</span>
+          <span class="eyebrow">Lesson 1 · Hosted by the Mathematician</span>
           <h2>Mirror Magic</h2>
           <div class="tags"><span class="tag">Symmetry</span><span class="tag">Ages 6–10</span><span class="tag">10 min</span></div>
         </div>
       </div>
-      <p class="bubble">“My body has a left side and a right side that match. That’s called symmetry! Can you spot it?”</p>
+      <p class="bubble">“I see symmetry everywhere: in spider webs, in leaves, even in your face! Let’s find the line where two halves match.”</p>
 
       <div class="cols">
         <div class="video" role="img" aria-label="Video placeholder">
@@ -275,12 +278,12 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
       <div class="lesson-head">
         <span id="hostBee"></span>
         <div class="meta">
-          <span class="eyebrow">Lesson 2 · Hosted by Bee</span>
+          <span class="eyebrow">Lesson 2 · Hosted by the Environmental Engineer</span>
           <h2>Honeycomb Hunt</h2>
           <div class="tags"><span class="tag">Shapes &amp; angles</span><span class="tag">Ages 7–10</span><span class="tag">15 min</span></div>
         </div>
       </div>
-      <p class="bubble">“Bees build with hexagons. They fit together with no gaps at all! Which other shapes can do that?”</p>
+      <p class="bubble">“Real bees build with hexagons. They fit together with no gaps, so no space or wax gets wasted! Which other shapes can do that?”</p>
 
       <div class="cols">
         <div class="video" role="img" aria-label="Video placeholder">
@@ -337,8 +340,8 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
     </article>
 
     <div class="panel" style="background:var(--note-blue)">
-      <span class="eyebrow">Coming next</span>
-      <h3>Beaver’s Trinket Box</h3>
+      <span class="eyebrow">Coming next · Hosted by the Architect</span>
+      <h3>The Trinket Box</h3>
       <p>Fold six squares into a box you can decorate and keep. Kids learn how a flat pattern called a net turns into a 3D shape, then test which nets really fold into a box.</p>
     </div>
   </section>
@@ -347,7 +350,7 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
     <div class="sec-head">
       <span class="eyebrow">The Kids</span>
       <h2>Meet the crew</h2>
-      <p>Each kid wears a hoodie of a favorite animal, and each animal leads the lessons it knows best. Names and finished art are on the way.</p>
+      <p>Seven kids, seven kinds of scientists and engineers. Each one wears a hoodie of a favorite animal and leads the lessons they know best. Names and finished art are on the way.</p>
     </div>
     <div class="cast" id="castGrid"></div>
   </section>
@@ -413,14 +416,20 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
 (function(){
 const L = '#1f2330';
 const CAST = [
-  {id:'python', name:'Python', hood:'#7cc576', skin:'#7a4a2e', hair:'#20150f', topic:'Coding and patterns', idea:'Step-by-step instructions, like a snake moving one segment at a time.'},
-  {id:'octopus', name:'Octopus', hood:'#b48ce0', skin:'#5e3a24', hair:'#1b120c', topic:'Counting and multiplying', idea:'Eight arms make skip-counting by 8 easy.'},
-  {id:'dolphin', name:'Dolphin', hood:'#7fb4e8', skin:'#8a5634', hair:'#20150f', topic:'Sound and waves', idea:'Dolphins hear echoes. Kids draw sound waves and make music.'},
-  {id:'falcon', name:'Falcon', hood:'#c8935e', skin:'#f0c9a4', hair:'#1f1712', topic:'Angles and flight', idea:'Paper planes, wing shapes and how angles help things fly.'},
-  {id:'beaver', name:'Beaver', hood:'#9c6b45', skin:'#c98d5d', hair:'#3a2618', topic:'Building and structures', idea:'Boxes, bridges and why triangles make things strong.'},
-  {id:'spider', name:'Spider', hood:'#4d5367', skin:'#c4875a', hair:'#1b120c', topic:'Symmetry', idea:'Webs and spiders are full of matching halves.'},
-  {id:'bee', name:'Bee', hood:'#ffd23f', skin:'#efc7a0', hair:'#1f1712', topic:'Shapes and tiling', idea:'Hexagons, honeycombs and patterns with no gaps.'},
-  {id:'otter', name:'Otter', hood:'#b98b6a', skin:'#f6d6bb', hair:'#7a4b2a', topic:'Floating and sinking', idea:'Build boats that float and test how much they can carry.'}
+  {id:'beaver', name:'Beaver', role:'Architect', girl:true, hood:'#9c6b45', skin:'#f3d2b5', hair:'#7a4b2a',
+   likes:'Loves building new spaces.', traits:['Organized','Curious','Resilient','Adaptable']},
+  {id:'python', name:'Python', role:'Coder', girl:true, hood:'#7cc576', skin:'#c98d5d', hair:'#20150f',
+   likes:'Comes up with creative solutions and thinks in systems.', traits:['Quiet','Persistent','Loves routine','Gets stressed easily']},
+  {id:'dolphin', name:'Dolphin', role:'Physicist', working:'Naomi', girl:true, hood:'#7fb4e8', skin:'#6b4228', hair:'#1b120c',
+   likes:'Loves explaining how things work.', quote:'Why does this do this?', traits:['Headstrong','Methodical','Precise','Outgoing']},
+  {id:'falcon', name:'Falcon', role:'Aerospace Engineer', working:'Carmen', girl:true, hood:'#c8935e', skin:'#efc9a2', hair:'#1f1712',
+   likes:'Loves aerodynamics and flight, and tosses things to see if they can fly. She uses a wheelchair and is still super fast.', traits:['Observant','Adventurous','Daring']},
+  {id:'spider', name:'Spider', role:'Mathematician', working:'Blaze', hood:'#4d5367', skin:'#c08a5e', hair:'#1b120c',
+   likes:'Sees symmetry, spirals and probabilities in everyday life, and loves finding the best way through numbers and patterns.', traits:['Curious','Calm','Interactive']},
+  {id:'octopus', name:'Octopus', role:'Mechanical Engineer', working:'Harlo', hood:'#b48ce0', skin:'#5e3a24', hair:'#1b120c',
+   likes:'Loves tinkering with machines. Always hands-on.', traits:['Patient','Problem-solver','Pioneer']},
+  {id:'bee', name:'Bee', role:'Environmental Engineer', hood:'#ffd23f', skin:'#e9bf95', hair:'#1f1712',
+   likes:'Thinks about how human inventions affect nature and the world around us.', quote:'How will this affect everything around it?', traits:['Playful','Curious','Enthusiastic']}
 ];
 
 function tube(d, col){ return `<path d="${d}" fill="none" stroke="${L}" stroke-width="11" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round"/>`; }
@@ -465,6 +474,7 @@ function kid(c){
     ${back}
     <circle cx="60" cy="62" r="42" fill="${h}" stroke="${L}" stroke-width="3.5"/>
     ${hoodX}
+    ${c.girl ? `<path d="M33 64 Q26 88 36 100 Q40 86 40 70Z" fill="${c.hair}"/><path d="M87 64 Q94 88 84 100 Q80 86 80 70Z" fill="${c.hair}"/>` : ''}
     <ellipse cx="60" cy="72" rx="29" ry="26" fill="${c.skin}" stroke="${L}" stroke-width="3"/>
     <path d="M31 68 Q36 48 60 48 Q84 48 89 68 Q80 58 70 62 Q64 53 56 61 Q44 56 31 68Z" fill="${c.hair}"/>
     <circle cx="50" cy="75" r="3.4" fill="${L}"/><circle cx="70" cy="75" r="3.4" fill="${L}"/>
@@ -479,15 +489,17 @@ document.getElementById('hostSpider').innerHTML = kid(byId('spider'));
 document.getElementById('hostBee').innerHTML = kid(byId('bee'));
 document.getElementById('castGrid').innerHTML = CAST.map(c=>`
   <div class="char">${kid(c)}
-    <h3>${c.name}</h3>
-    <span class="eyebrow">${c.topic}</span>
-    <p>${c.idea}</p>
-    <span class="soon">Real name coming soon</span>
+    <span class="eyebrow">${c.name} hoodie</span>
+    <h3>The ${c.role}</h3>
+    ${c.working ? `<span class="soon">Working name: ${c.working}</span>` : ''}
+    <p>${c.likes}</p>
+    ${c.quote ? `<p class="quote">“${c.quote}”</p>` : ''}
+    <div class="traits">${c.traits.map(t=>`<span class="trait">${t}</span>`).join('')}</div>
   </div>`).join('');
 
 const MERCH = [
   {name:'Crew plushies', note:'Soft hoodie kids, starting with Bee', who:'bee'},
-  {name:'Sticker sheet', note:'All eight kids, waterproof', who:'octopus'},
+  {name:'Sticker sheet', note:'All seven kids, waterproof', who:'octopus'},
   {name:'Kids’ hoodie', note:'Pick your animal ears', who:'beaver'},
   {name:'Sketchbook', note:'Grid pages for symmetry art', who:'spider'}
 ];
