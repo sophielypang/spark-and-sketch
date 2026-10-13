@@ -3,7 +3,7 @@
 Website for Spark and Sketch, a nonprofit that teaches elementary-age kids STEM through art.
 
 ## What's here
-- `index.html` — the whole site in one page: lessons with games, the cast, the book, events and the shop.
+- `index.html` — the whole site in one page: lessons with games, the cast, the book, events, the shop and an about section.
 - `assets/character-sketches.jpg` — original character concept sketches.
 - `characters.md` — written descriptions of the seven characters.
 
