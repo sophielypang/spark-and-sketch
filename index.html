@@ -219,10 +219,6 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
     <div class="cast-row" id="heroCast" aria-hidden="true"></div>
     <h1>STEM you can <span class="spark">draw.</span></h1>
     <p class="lede">Spark and Sketch teaches kids ages 6 to 10 the building blocks of science, technology, engineering and math through art. Watch a short video, learn the idea, then play a game that uses it. Every lesson is free.</p>
-    <div class="ctas">
-      <a class="btn primary" href="#mirror">Play Mirror Magic</a>
-      <a class="btn" href="#honeycomb">Play Honeycomb Hunt</a>
-    </div>
   </section>
 
   <section id="play">
@@ -239,10 +235,10 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
         <div class="meta">
           <span class="eyebrow">Lesson 1 · Hosted by the Mathematician</span>
           <h2>Mirror Magic</h2>
-          <div class="tags"><span class="tag">Symmetry</span><span class="tag">Ages 6–10</span><span class="tag">10 min</span></div>
+          <div class="tags"><span class="tag">Symmetry</span><span class="tag">10 min</span></div>
         </div>
       </div>
-      <p class="bubble">“I see symmetry everywhere: in spider webs, in leaves, even in your face! Let’s find the line where two halves match.”</p>
+      <p class="bubble">"I see symmetry everywhere: in spider webs, in leaves, even in your face! Let's find the line where two halves match."</p>
 
       <div class="cols">
         <div class="video" role="img" aria-label="Video placeholder">
@@ -294,10 +290,10 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
         <div class="meta">
           <span class="eyebrow">Lesson 2 · Hosted by the Environmental Engineer</span>
           <h2>Honeycomb Hunt</h2>
-          <div class="tags"><span class="tag">Shapes &amp; angles</span><span class="tag">Environmental engineering</span><span class="tag">Ages 7–10</span><span class="tag">15 min</span></div>
+          <div class="tags"><span class="tag">Shapes &amp; angles</span><span class="tag">Environmental engineering</span><span class="tag">15 min</span></div>
         </div>
       </div>
-      <p class="bubble">“Bees are nature’s engineers! They build with hexagons so no space and no wax gets wasted. How could we build like bees?”</p>
+      <p class="bubble">"Bees are nature's engineers! They build with hexagons so no space and no wax gets wasted. How could we build like bees?"</p>
 
       <div class="cols">
         <div class="video" role="img" aria-label="Video placeholder">
@@ -314,7 +310,7 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
             <li><div><strong>Look where the corners meet.</strong>All the way around one point is a full turn, which is 360 degrees (360°).</div></li>
             <li><div><strong>The corners have to add up to exactly 360°.</strong>A hexagon corner is 120°. Three of them make 120 + 120 + 120 = 360. A perfect fit!</div></li>
             <li><div><strong>Bees pick the shape that wastes the least.</strong>Honeycomb walls are made of wax, and bees must eat lots of honey to make wax. Hexagons hold the same honey as triangles or squares but need less wall, so the hive saves its food.</div></li>
-            <li><div><strong>Engineers ask the bee’s question.</strong>“How do we build it with less material and less waste?” That’s why airplanes, doors and even cardboard use honeycomb shapes inside. They stay strong and light while using less stuff.</div></li>
+            <li><div><strong>Engineers ask the bee's question.</strong>"How do we build it with less material and less waste?" That's why airplanes, doors and even cardboard use honeycomb shapes inside. They stay strong and light while using less stuff.</div></li>
           </ol>
           <div class="make">
             <span class="eyebrow">Make it with art</span>
@@ -354,7 +350,7 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
         </div>
 
         <div class="challenge">
-          <span class="eyebrow">Part 2 · Engineer’s challenge</span>
+          <span class="eyebrow">Part 2 · Engineer's challenge</span>
           <h3>Which hive uses the least wax?</h3>
           <p>Three shapes tile with no gaps: triangles, squares and hexagons. In each hive below, every cell holds the same amount of honey. Wax walls cost the bees honey to make. Which hive should the bees build?</p>
           <div class="hives" id="hcHives"></div>
@@ -540,14 +536,14 @@ document.getElementById('castGrid').innerHTML = CAST.map(c=>`
     <h3>The ${c.role}</h3>
     ${c.working ? `<span class="soon">Working name: ${c.working}</span>` : ''}
     <p>${c.likes}</p>
-    ${c.quote ? `<p class="quote">“${c.quote}”</p>` : ''}
+    ${c.quote ? `<p class="quote">"${c.quote}"</p>` : ''}
     <div class="traits">${c.traits.map(t=>`<span class="trait">${t}</span>`).join('')}</div>
   </div>`).join('');
 
 const MERCH = [
   {name:'Crew plushies', note:'Soft hoodie kids, starting with Bee', who:'bee'},
   {name:'Sticker sheet', note:'All seven kids, waterproof', who:'octopus'},
-  {name:'Kids’ hoodie', note:'Pick your animal ears', who:'beaver'},
+  {name:'Kids\' hoodie', note:'Pick your animal ears', who:'beaver'},
   {name:'Sketchbook', note:'Grid pages for symmetry art', who:'spider'}
 ];
 document.getElementById('merch').innerHTML = MERCH.map(m=>`
@@ -608,12 +604,12 @@ document.getElementById('mmCheck').addEventListener('click',()=>{
   if(wrong===0){
     done.add(lvl); renderLevels();
     const next = lvl<LEVELS.length-1;
-    setStatus(st, next ? 'Perfect mirror! Tap the next level when you’re ready.' : 'You finished every picture. Spider is impressed!', 'good');
+    setStatus(st, next ? 'Perfect mirror! Tap the next level when you\'re ready.' : 'You finished every picture. Spider is impressed!', 'good');
     st.classList.add('pop');
   } else if(painted===0){
     setStatus(st,'Tap a square on the right side to paint it.');
   } else {
-    setStatus(st, `${wrong} square${wrong>1?'s':''} marked with ✕ don’t match yet. Count the steps from the line.`, 'bad');
+    setStatus(st, `${wrong} square${wrong>1?'s':''} marked with ✕ don\'t match yet. Count the steps from the line.`, 'bad');
   }
 });
 document.getElementById('mmClear').addEventListener('click',()=>loadLevel(lvl));
@@ -673,7 +669,7 @@ function renderBoard(){
     setStatus(hs, left<s.angle ? `${eq} Only ${left}° is left, but a ${nm} needs ${s.angle}°. Try adding one more!` : `${eq} ${left}° is still open.`);
   }
   else if(sum===360) setStatus(hs,`${eq} A perfect fit, no gaps!`,'good');
-  else setStatus(hs,`${eq} That’s more than 360°, so the tiles overlap.`,'bad');
+  else setStatus(hs,`${eq} That\'s more than 360°, so the tiles overlap.`,'bad');
   document.getElementById('hhQ').textContent = `Does a ${nm} tile with no gaps?`;
 }
 document.getElementById('hhShapes').addEventListener('click',e=>{const b=e.target.closest('[data-s]'); if(!b) return; cur=+b.dataset.s; placed=0; renderShapes(); renderBoard();});
@@ -681,7 +677,7 @@ document.getElementById('hhAdd').addEventListener('click',()=>{placed++; renderB
 document.getElementById('hhReset').addEventListener('click',()=>{placed=0; renderBoard();});
 function answer(yes){
   const s=SHAPES[cur], correct = yes===s.tiles; answered[cur]=correct; renderShapes();
-  const why = s.tiles ? `${360/s.angle} corners of ${s.angle}° make exactly 360°.` : `${s.angle}° doesn’t go into 360° evenly, so there’s always a gap or an overlap.`;
+  const why = s.tiles ? `${360/s.angle} corners of ${s.angle}° make exactly 360°.` : `${s.angle}° doesn\'t go into 360° evenly, so there\'s always a gap or an overlap.`;
   const all = Object.keys(answered).length===SHAPES.length && Object.values(answered).every(Boolean);
   setStatus(hs, correct ? (all ? `Right! ${why} You sorted every shape. Bee says buzz-tastic!` : `Right! ${why} Try another shape.`) : `Not quite. ${why} Add tiles to see it.`, correct?'good':'bad');
   hs.classList.add('pop');
@@ -730,7 +726,7 @@ function renderHives(){
 hives.addEventListener('click',e=>{
   const b=e.target.closest('[data-h]'); if(!b) return; hcPicked=+b.dataset.h; renderHives();
   if(HIVES[hcPicked].wax===93) setStatus(hcs,'You think like an engineer! The hexagon hive uses the least wax, so the bees save honey for food. Less material, less waste.','good');
-  else setStatus(hcs,`Good guess! Look at the wax bars: the ${HIVES[hcPicked].name.toLowerCase()} uses ${HIVES[hcPicked].wax}, but the hexagon hive uses only 93. That’s why bees build with hexagons.`);
+  else setStatus(hcs,`Good guess! Look at the wax bars: the ${HIVES[hcPicked].name.toLowerCase()} uses ${HIVES[hcPicked].wax}, but the hexagon hive uses only 93. That\'s why bees build with hexagons.`);
   hcs.classList.add('pop');
 });
 hcs.addEventListener('animationend',()=>hcs.classList.remove('pop'));
