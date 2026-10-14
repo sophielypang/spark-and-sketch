@@ -199,7 +199,7 @@ function drawCard(){
   card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop');
 }
 svg.addEventListener('click',e=>{const g=e.target.closest('.hcell'); if(!g) return; active=g.dataset.id; drawHive(); drawCard();});
-svg.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ const g=e.target.closest('.hcell'); if(!g) return; e.preventDefault(); active=g.dataset.id; drawHive(); drawCard(); svg.querySelector(`[data-id="${active}"]`).focus(); } });
+svg.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ const g=e.target.closest('.hcell'); if(!g) return; e.preventDefault(); active=g.dataset.id; drawHive(); drawCard(); svg.querySelector(`[data-id="${active}"]`).focus({preventScroll:true}); } });
 drawHive(); drawCard();
 
 const MERCH = [

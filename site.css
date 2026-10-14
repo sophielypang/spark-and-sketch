@@ -168,7 +168,8 @@ button.cell:hover{box-shadow:inset 0 0 0 3px var(--spark)}
 .hive-wrap{max-width:520px;width:100%;margin-inline:auto}
 .hive-svg{width:100%;height:auto;display:block;overflow:visible}
 .hcell{cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
-.hcell:focus,.hcell .inner{fill:none;stroke:#b8701a;stroke-opacity:.45;stroke-width:2;stroke-linejoin:round;pointer-events:none;transition:stroke-width .15s,stroke-opacity .15s}
+.hcell:focus,.hcell:focus-visible{outline:none}
+.hcell .inner{fill:none;stroke:#b8701a;stroke-opacity:.45;stroke-width:2;stroke-linejoin:round;pointer-events:none;transition:stroke-width .15s,stroke-opacity .15s}
 .hcell.active .inner,.hcell:focus-visible .inner{stroke:var(--honey-ink);stroke-opacity:1;stroke-width:5}
 .hcell .honey{fill:url(#honeyGrad);transition:filter .15s}
 .hcell .comb{fill:url(#combPat);pointer-events:none}
