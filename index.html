@@ -176,7 +176,7 @@ function drawHive(){
   layout.forEach(([id,col,row])=>{
     const c=byId(id), [x,y]=cellXY(col,row), on=id===active;
     fills.push(`<g class="hcell ${on?'active':''}" data-id="${id}" tabindex="0" role="button" aria-label="${c.role}, ${c.name} hoodie" aria-pressed="${on}">
-      <polygon class="honey" points="${hexPts(x,y,R)}"/><polygon class="comb" points="${hexPts(x,y,R)}"/></g>`);
+      <polygon class="honey" points="${hexPts(x,y,R)}"/><polygon class="comb" points="${hexPts(x,y,R)}"/><polygon class="inner" points="${hexPts(x,y,R-13)}"/></g>`);
     walls.push(`<polygon class="wall-edge" points="${hexPts(x,y,R)}"/>`);
     faces.push(`<g class="hcell-face" pointer-events="none">
       <g transform="translate(${(x-33).toFixed(1)},${(y-64).toFixed(1)}) scale(0.52)">${kid(c).replace('<svg ','<svg width="128" height="128" ')}</g>
@@ -185,7 +185,7 @@ function drawHive(){
     </g>`);
   });
   // draw order: honey fills, dark wall edges, wood walls (active last so its gold shows), then faces
-  const wood=layout.map(([id,col,row])=>{const [x,y]=cellXY(col,row);return [id,`<polygon class="wall ${id===active?'is-active':''}" points="${hexPts(x,y,R)}"/>`];});
+  const wood=layout.map(([id,col,row])=>{const [x,y]=cellXY(col,row);return [id,`<polygon class="wall" points="${hexPts(x,y,R)}"/>`];});
   const woodOrdered=wood.filter(w=>w[0]!==active).concat(wood.filter(w=>w[0]===active)).map(w=>w[1]);
   svg.innerHTML = defs + fills.join('') + walls.join('') + `<g class="walls">${woodOrdered.join('')}</g>` + faces.join('');
 }
