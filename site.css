@@ -15,6 +15,7 @@
   --line-art:#1f2330;
   --font-display:"Gaegu","Comic Sans MS","Chalkboard SE",cursive;
   --font-body:"Andika","Trebuchet MS",system-ui,sans-serif;
+  --title:#e8a917; --title-ink:#1f2330;
   --wood:#e2bf86; --wood-ink:#5a3d1a; --honey-ink:#3a2608; --honey-halo:#ffe9a8;
   --radius:18px;
   --stroke:3px;
@@ -61,9 +62,8 @@ a{color:inherit}
 
 /* hero */
 .hero{padding-block:48px 32px;display:grid;gap:28px;text-align:left}
-.hero h1{font-size:clamp(3.2rem,11vw,6.6rem);letter-spacing:.005em;-webkit-text-stroke:.03em var(--ink);paint-order:stroke fill}
-.hero h1 .spark{-webkit-text-stroke-color:var(--on-spark)}
-.hero h1 .spark{background:var(--spark);color:var(--on-spark);padding:0 .15em;border-radius:12px;display:inline-block;transform:rotate(-2deg)}
+.hero h1{font-size:clamp(2.4rem,9vw,6.4rem);white-space:nowrap;letter-spacing:.005em;color:var(--title);-webkit-text-stroke:.03em var(--title-ink);paint-order:stroke fill;text-shadow:.06em .06em 0 var(--title-ink)}
+.hero h1 .spark{display:inline-block;transform:rotate(-2deg)}
 .hero .lede{font-size:1.2rem;max-width:58ch}
 .cast-row{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;justify-items:center;align-items:end}
 .cast-row svg{width:100%;max-width:110px;height:auto;display:block}
