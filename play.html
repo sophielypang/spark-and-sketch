@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Play & Learn · Spark and Sketch</title>
+<meta name="description" content="Spark and Sketch teaches elementary-age kids STEM through art, with free short videos, art projects and games.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Andika:wght@400;700&display=swap">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2l3.5 9.5L29 13l-7.5 6 2.5 10-8-5.5L8 29l2.5-10L3 13l9.5-1.5z" fill="var(--spark)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/></svg>Spark and Sketch</a>
+    <nav aria-label="Main">
+      <a href="play.html" aria-current="page">Play &amp; Learn</a>
+      <a href="index.html#cast">The Crew</a>
+      <a href="index.html#book">The Book</a>
+      <a href="index.html#events">Events</a>
+      <a href="index.html#shop">Shop</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero" style="padding-block:40px 8px">
+    <span class="eyebrow">Play &amp; Learn</span>
+    <h1 style="font-size:clamp(2.6rem,8vw,4.8rem)">The lesson <span class="spark">journey</span></h1>
+    <p class="lede">Follow the path one stop at a time. Each stop has a short video, the big idea in small steps, an art project to make at home, and a game that uses what you learned. Want a favorite host? Tap a crew member to see just their stops.</p>
+    <div class="hosts" id="hosts"></div>
+  </section>
+
+  <section id="journey">
+    <div class="journey" id="journeyList">
+
+      <div class="stop" data-host="spider">
+        <div class="marker"><div class="num">1</div></div>
+    <!-- LESSON 1 -->
+    <article class="lesson" id="mirror">
+      <div class="lesson-head">
+        <span id="hostSpider"></span>
+        <div class="meta">
+          <span class="eyebrow">Stop 1 · Hosted by the Mathematician</span>
+          <h2>Mirror Magic</h2>
+          <div class="tags"><span class="tag">Symmetry</span><span class="tag">10 min</span></div>
+        </div>
+      </div>
+      <p class="bubble">"I see symmetry everywhere: in spider webs, in leaves, even in your face! Let's find the line where two halves match."</p>
+
+      <div class="cols">
+        <div class="video" role="img" aria-label="Video placeholder">
+          <div class="inner">
+            <div class="play"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l11 7-11 7z" fill="var(--on-spark)"/></svg></div>
+            <strong>Video coming soon</strong>
+            <small>Spider shows the fold-and-paint trick · about 60 sec</small>
+          </div>
+        </div>
+        <div class="learn">
+          <h3>The big idea</h3>
+          <ol class="steps">
+            <li><div><strong>A line of symmetry cuts a picture into two matching halves.</strong>If you folded the picture on that line, the halves would land right on top of each other.</div></li>
+            <li><div><strong>One half is the mirror image of the other.</strong>Everything gets flipped. A spot on the far left has a twin on the far right.</div></li>
+            <li><div><strong>Count from the line.</strong>If a square is 2 steps to the left of the line, its twin is 2 steps to the right. Same row, same color.</div></li>
+          </ol>
+          <div class="make">
+            <span class="eyebrow">Make it with art</span>
+            <p>Fold a paper in half and open it. Paint blobs on one side only, fold it shut, press, and peel it open. You just made a symmetric butterfly.</p>
+          </div>
+          <p class="grownups">For grown-ups: lines of symmetry (Common Core 4.G.A.3), with an early start for grades 1–3.</p>
+        </div>
+      </div>
+
+      <div class="game" aria-labelledby="mmTitle">
+        <div class="game-head">
+          <h3 id="mmTitle">Game: Finish the picture</h3>
+          <div class="levels" id="mmLevels"></div>
+        </div>
+        <p>The left half is done. Paint the right half so it mirrors the left. Pick a color, then tap squares.</p>
+        <div class="mm-board">
+          <div class="mm-gridwrap"><div class="mm-grid" id="mmGrid"></div></div>
+          <div class="side-panel">
+            <div><span class="eyebrow">Your paint</span><div class="swatches" id="mmSwatches" style="margin-top:8px"></div></div>
+            <p class="status" id="mmStatus" aria-live="polite">Start next to the dotted line and work outward.</p>
+            <div class="row">
+              <button class="btn primary" id="mmCheck">Check it</button>
+              <button class="btn" id="mmClear">Start over</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+      </div>
+
+      <div class="stop" data-host="bee">
+        <div class="marker"><div class="num">2</div></div>
+    <!-- LESSON 2 -->
+    <article class="lesson mint" id="honeycomb">
+      <div class="lesson-head">
+        <span id="hostBee"></span>
+        <div class="meta">
+          <span class="eyebrow">Stop 2 · Hosted by the Environmental Engineer</span>
+          <h2>Honeycomb Hunt</h2>
+          <div class="tags"><span class="tag">Shapes &amp; angles</span><span class="tag">Environmental engineering</span><span class="tag">15 min</span></div>
+        </div>
+      </div>
+      <p class="bubble">"Bees are nature's engineers! They build with hexagons so no space and no wax gets wasted. How could we build like bees?"</p>
+
+      <div class="cols">
+        <div class="video" role="img" aria-label="Video placeholder">
+          <div class="inner">
+            <div class="play"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l11 7-11 7z" fill="var(--on-spark)"/></svg></div>
+            <strong>Video coming soon</strong>
+            <small>Bee traces a honeycomb · about 60 sec</small>
+          </div>
+        </div>
+        <div class="learn">
+          <h3>The big idea</h3>
+          <ol class="steps">
+            <li><div><strong>A tessellation is a pattern of shapes with no gaps and no overlaps.</strong>Floor tiles, brick walls and honeycombs are all tessellations.</div></li>
+            <li><div><strong>Look where the corners meet.</strong>All the way around one point is a full turn, which is 360 degrees (360°).</div></li>
+            <li><div><strong>The corners have to add up to exactly 360°.</strong>A hexagon corner is 120°. Three of them make 120 + 120 + 120 = 360. A perfect fit!</div></li>
+            <li><div><strong>Bees pick the shape that wastes the least.</strong>Honeycomb walls are made of wax, and bees must eat lots of honey to make wax. Hexagons hold the same honey as triangles or squares but need less wall, so the hive saves its food.</div></li>
+            <li><div><strong>Engineers ask the bee's question.</strong>"How do we build it with less material and less waste?" That's why airplanes, doors and even cardboard use honeycomb shapes inside. They stay strong and light while using less stuff.</div></li>
+          </ol>
+          <div class="make">
+            <span class="eyebrow">Make it with art</span>
+            <p>Reuse an empty cereal box: cut out a hexagon and use it as a stencil. Trace it, slide it so one edge touches, and trace again. Keep going until the page is a honeycomb, then color it in. Bonus: count how many cells you made from one stencil and zero new cardboard.</p>
+          </div>
+          <p class="grownups">For grown-ups: angles as parts of a 360° turn (Common Core 4.MD.C.5), adding angles (4.MD.C.7), and comparing design solutions (NGSS 3-5-ETS1-2).</p>
+        </div>
+      </div>
+
+      <div class="game" aria-labelledby="hhTitle">
+        <div class="game-head">
+          <h3 id="hhTitle">Game: Which shapes tile?</h3>
+          <span class="hive" id="hhScore"></span>
+        </div>
+        <p>Pick a shape. Add tiles around the dot and watch the corners add up. Then decide: does it tile with no gaps?</p>
+        <div class="shape-pick" id="hhShapes"></div>
+        <div class="hh-board">
+          <svg class="hh-svg" id="hhSvg" viewBox="-150 -150 300 300" role="img" aria-label="Tiles placed around a point"></svg>
+          <div class="side-panel">
+            <div>
+              <div class="meter" aria-hidden="true"><div class="fill" id="hhFill"></div><div class="over" id="hhOver"></div></div>
+              <div class="meter-label"><span>0°</span><span id="hhSum">0° of 360°</span><span>360°</span></div>
+            </div>
+            <p class="status" id="hhStatus" aria-live="polite"></p>
+            <div class="row">
+              <button class="btn primary" id="hhAdd">Add a tile</button>
+              <button class="btn" id="hhReset">Clear</button>
+            </div>
+            <div class="ask">
+              <strong id="hhQ">Does it tile with no gaps?</strong>
+              <div class="row">
+                <button class="btn" id="hhYes">Yes, it fits</button>
+                <button class="btn" id="hhNo">No, gaps or overlaps</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="challenge">
+          <span class="eyebrow">Part 2 · Engineer's challenge</span>
+          <h3>Which hive uses the least wax?</h3>
+          <p>Three shapes tile with no gaps: triangles, squares and hexagons. In each hive below, every cell holds the same amount of honey. Wax walls cost the bees honey to make. Which hive should the bees build?</p>
+          <div class="hives" id="hcHives"></div>
+          <p class="status" id="hcStatus" aria-live="polite">Tap the hive you think uses the least wax.</p>
+        </div>
+      </div>
+    </article>
+      </div>
+
+      <div class="stop next" data-host="beaver">
+        <div class="marker"><div class="num">3</div></div>
+        <div class="panel" style="background:var(--note-blue)">
+          <span class="eyebrow">Coming next · Hosted by the Architect</span>
+          <h3>The Trinket Box</h3>
+          <p>Fold six squares into a box you can decorate and keep. Kids learn how a flat pattern called a net turns into a 3D shape, then test which nets really fold into a box.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="journey-empty" id="journeyEmpty"></div>
+  </section>
+
+  <footer>
+    <span>Spark and Sketch is a nonprofit teaching STEM through art.</span>
+    <span>Lessons are free, always.</span>
+  </footer>
+</main>
+
+<script src="characters.js"></script>
+<script>
+(function(){
+const {CAST, kid, byId} = window.SS;
+document.getElementById('hostSpider').innerHTML = kid(byId('spider'));
+document.getElementById('hostBee').innerHTML = kid(byId('bee'));
+
+/* ---- host filter ---- */
+const stops=[...document.querySelectorAll('.stop')], hostsEl=document.getElementById('hosts'), empty=document.getElementById('journeyEmpty');
+const hasStops=new Set(stops.map(s=>s.dataset.host));
+let host='all';
+function renderHosts(){
+  hostsEl.innerHTML = `<button class="host" aria-pressed="${host==='all'}" data-host="all">All stops</button>` +
+    CAST.map(c=>`<button class="host" aria-pressed="${host===c.id}" data-host="${c.id}" title="${hasStops.has(c.id)?'':'No lessons yet'}">${kid(c)}${c.role}</button>`).join('');
+  let shown=0;
+  stops.forEach(s=>{ const show = host==='all' || s.dataset.host===host; s.hidden=!show; if(show) shown++; });
+  if(shown===0){ const c=byId(host); empty.textContent=`The ${c.role} doesn't have a lesson yet. Check back soon!`; empty.classList.add('show'); }
+  else empty.classList.remove('show');
+}
+hostsEl.addEventListener('click',e=>{const b=e.target.closest('[data-host]'); if(!b) return; host=b.dataset.host; renderHosts();});
+renderHosts();
+
+const L = window.SS.L;
+const setStatus=(el,msg,cls)=>{ el.textContent=msg; el.className='status'+(cls?' '+cls:''); };
+/* ---------- Mirror Magic ---------- */
+const LEVELS = [
+  {name:'Heart', paints:{a:'--p1'}, rows:['.aa.','aaaa','aaaa','.aaa','..aa','...a']},
+  {name:'House', paints:{a:'--p3', b:'--p1', c:'--p2'}, rows:['...b','..bb','.bbb','.aaa','.aca','.aac']},
+  {name:'Butterfly', paints:{a:'--p3', b:'--p2', c:'--p1'}, rows:['b..c','bb.c','babc','bbbc','.abc','..bc']}
+];
+const LABEL = {'--p1':'Red','--p2':'Blue','--p3':'Yellow'};
+let lvl=0, brush='a', done=new Set(), right=[];
+const grid=document.getElementById('mmGrid'), st=document.getElementById('mmStatus');
+
+function resetRight(){ right = LEVELS[lvl].rows.map(()=>['.','.','.','.']); }
+function paintVar(letter){ return letter==='.' ? 'var(--grid-empty)' : `var(${LEVELS[lvl].paints[letter]})`; }
+
+function renderLevels(){
+  document.getElementById('mmLevels').innerHTML = LEVELS.map((l,i)=>`<button class="lvl ${done.has(i)?'done':''}" aria-current="${i===lvl}" data-l="${i}">${i+1}. ${l.name}</button>`).join('');
+}
+function renderSwatches(){
+  const p = LEVELS[lvl].paints;
+  if(brush!=='.' && !p[brush]) brush = Object.keys(p)[0];
+  document.getElementById('mmSwatches').innerHTML = Object.keys(p).map(k=>`<button class="swatch" style="background:var(${p[k]})" aria-label="${LABEL[p[k]]} paint" aria-pressed="${brush===k}" data-b="${k}"></button>`).join('') +
+    `<button class="swatch eraser" aria-label="Eraser" aria-pressed="${brush==='.'}" data-b=".">erase</button>`;
+}
+function renderGrid(){
+  const rows = LEVELS[lvl].rows; let h='';
+  rows.forEach((r,ri)=>{
+    for(let c=0;c<8;c++){
+      if(c<4){ h += `<div class="cell fixed" style="background:${paintVar(r[c])}"></div>`; }
+      else { const k=c-4; h += `<button class="cell" data-r="${ri}" data-k="${k}" aria-label="Row ${ri+1}, square ${c+1}" style="background:${paintVar(right[ri][k])}"></button>`; }
+    }
+  });
+  grid.innerHTML = h;
+}
+function loadLevel(i){ lvl=i; resetRight(); renderLevels(); renderSwatches(); renderGrid(); setStatus(st, i===0?'Start next to the dotted line and work outward.':`Level ${i+1}: the ${LEVELS[i].name.toLowerCase()}. Watch out for more colors!`); }
+
+document.getElementById('mmLevels').addEventListener('click',e=>{const b=e.target.closest('[data-l]'); if(b) loadLevel(+b.dataset.l);});
+document.getElementById('mmSwatches').addEventListener('click',e=>{const b=e.target.closest('[data-b]'); if(!b) return; brush=b.dataset.b; renderSwatches();});
+grid.addEventListener('click',e=>{
+  const b=e.target.closest('button.cell'); if(!b) return;
+  const r=+b.dataset.r,k=+b.dataset.k;
+  right[r][k] = (right[r][k]===brush) ? '.' : brush;
+  b.style.background = paintVar(right[r][k]); b.classList.remove('oops');
+});
+document.getElementById('mmCheck').addEventListener('click',()=>{
+  const rows=LEVELS[lvl].rows; let wrong=0, painted=0;
+  grid.querySelectorAll('button.cell').forEach(b=>{
+    const r=+b.dataset.r,k=+b.dataset.k, want=rows[r][3-k], got=right[r][k];
+    if(got!=='.') painted++;
+    const bad = want!==got; b.classList.toggle('oops',bad); if(bad) wrong++;
+  });
+  if(wrong===0){
+    done.add(lvl); renderLevels();
+    const next = lvl<LEVELS.length-1;
+    setStatus(st, next ? 'Perfect mirror! Tap the next level when you\'re ready.' : 'You finished every picture. Spider is impressed!', 'good');
+    st.classList.add('pop');
+  } else if(painted===0){
+    setStatus(st,'Tap a square on the right side to paint it.');
+  } else {
+    setStatus(st, `${wrong} square${wrong>1?'s':''} marked with ✕ don\'t match yet. Count the steps from the line.`, 'bad');
+  }
+});
+document.getElementById('mmClear').addEventListener('click',()=>loadLevel(lvl));
+loadLevel(0);
+
+/* ---------- Honeycomb Hunt ---------- */
+const SHAPES = [
+  {n:3,name:'Triangle'},{n:4,name:'Square'},{n:5,name:'Pentagon'},{n:6,name:'Hexagon'},{n:8,name:'Octagon'}
+].map(s=>({...s, angle:180*(s.n-2)/s.n, tiles:360%(180*(s.n-2)/s.n)===0}));
+let cur=3, placed=0; const answered={};
+const svg=document.getElementById('hhSvg'), hs=document.getElementById('hhStatus');
+const TILE_COLORS=['#ffc83a','#ffe08a'];
+
+function polyPts(n, startDeg){
+  const s = 135*Math.sin(Math.PI/n); let x=0,y=0,h=startDeg; const pts=[[0,0]];
+  for(let i=0;i<n-1;i++){ x+=s*Math.cos(h*Math.PI/180); y+=s*Math.sin(h*Math.PI/180); pts.push([x,y]); h+=360/n; }
+  return pts.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ');
+}
+function iconPts(n){ // small regular polygon for button icon
+  const pts=[]; for(let i=0;i<n;i++){ const a=(-90+360*i/n)*Math.PI/180; pts.push((11+9*Math.cos(a)).toFixed(1)+','+(12+9*Math.sin(a)).toFixed(1)); } return pts.join(' ');
+}
+function renderShapes(){
+  document.getElementById('hhShapes').innerHTML = SHAPES.map((s,i)=>{
+    const a=answered[i]; const res = a===undefined?'':(a?' ✓':' ✕');
+    return `<button class="shape-btn" aria-pressed="${i===cur}" data-s="${i}"><svg viewBox="0 0 22 22" aria-hidden="true"><polygon points="${iconPts(s.n)}" fill="var(--spark)" stroke="currentColor" stroke-width="2"/></svg>${s.name}<span class="res">${res}</span></button>`;
+  }).join('');
+  const right = Object.values(answered).filter(Boolean).length;
+  document.getElementById('hhScore').textContent = `Hive score: ${right} of ${SHAPES.length}`;
+}
+function arcPath(r,a1,a2){
+  const p=a=>[(r*Math.cos(a*Math.PI/180)).toFixed(1),(r*Math.sin(a*Math.PI/180)).toFixed(1)];
+  const [x1,y1]=p(a1),[x2,y2]=p(a2); const large=(a2-a1)>180?1:0;
+  return `M0,0 L${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2} Z`;
+}
+function renderBoard(){
+  const s=SHAPES[cur], sum=placed*s.angle; let h='';
+  for(let k=0;k<placed;k++){
+    const start=-90+k*s.angle, overlapping = (k+1)*s.angle>360;
+    h += `<polygon points="${polyPts(s.n,start)}" fill="${overlapping?'var(--coral)':TILE_COLORS[k%2]}" fill-opacity="${overlapping?.6:1}" stroke="${L}" stroke-width="3" stroke-linejoin="round" ${overlapping?'stroke-dasharray="8 6"':''}/>`;
+  }
+  if(placed>0 && sum<360){
+    h += `<path d="${arcPath(34,-90+sum,270)}" fill="#ffffff" fill-opacity=".85" stroke="${L}" stroke-width="2" stroke-dasharray="5 4"/>`;
+    const mid=(-90+sum+270)/2*Math.PI/180;
+    h += `<text x="${(52*Math.cos(mid)).toFixed(1)}" y="${(52*Math.sin(mid)+5).toFixed(1)}" text-anchor="middle" font-family="Andika, sans-serif" font-weight="700" font-size="15" fill="${L}">gap ${360-sum}°</text>`;
+  }
+  h += `<circle cx="0" cy="0" r="6" fill="${L}"/>`;
+  svg.innerHTML = h;
+  svg.setAttribute('aria-label', `${placed} ${s.name.toLowerCase()} tiles around a point, corners add to ${sum} degrees`);
+  document.getElementById('hhFill').style.width = Math.min(sum,360)/360*100+'%';
+  document.getElementById('hhOver').style.width = sum>360 ? ((sum-360)/360*100)+'%' : '0';
+  document.getElementById('hhSum').textContent = `${sum}° of 360°`;
+  document.getElementById('hhAdd').disabled = sum>=360;
+  const nm=s.name.toLowerCase(), eq=`${placed} × ${s.angle}° = ${sum}°.`;
+  if(placed===0) setStatus(hs,`A ${nm} corner is ${s.angle}°. Add tiles around the dot.`);
+  else if(sum<360){
+    const left=360-sum;
+    setStatus(hs, left<s.angle ? `${eq} Only ${left}° is left, but a ${nm} needs ${s.angle}°. Try adding one more!` : `${eq} ${left}° is still open.`);
+  }
+  else if(sum===360) setStatus(hs,`${eq} A perfect fit, no gaps!`,'good');
+  else setStatus(hs,`${eq} That\'s more than 360°, so the tiles overlap.`,'bad');
+  document.getElementById('hhQ').textContent = `Does a ${nm} tile with no gaps?`;
+}
+document.getElementById('hhShapes').addEventListener('click',e=>{const b=e.target.closest('[data-s]'); if(!b) return; cur=+b.dataset.s; placed=0; renderShapes(); renderBoard();});
+document.getElementById('hhAdd').addEventListener('click',()=>{placed++; renderBoard();});
+document.getElementById('hhReset').addEventListener('click',()=>{placed=0; renderBoard();});
+function answer(yes){
+  const s=SHAPES[cur], correct = yes===s.tiles; answered[cur]=correct; renderShapes();
+  const why = s.tiles ? `${360/s.angle} corners of ${s.angle}° make exactly 360°.` : `${s.angle}° doesn\'t go into 360° evenly, so there\'s always a gap or an overlap.`;
+  const all = Object.keys(answered).length===SHAPES.length && Object.values(answered).every(Boolean);
+  setStatus(hs, correct ? (all ? `Right! ${why} You sorted every shape. Bee says buzz-tastic!` : `Right! ${why} Try another shape.`) : `Not quite. ${why} Add tiles to see it.`, correct?'good':'bad');
+  hs.classList.add('pop');
+}
+document.getElementById('hhYes').addEventListener('click',()=>answer(true));
+document.getElementById('hhNo').addEventListener('click',()=>answer(false));
+hs.addEventListener('animationend',()=>hs.classList.remove('pop'));
+st.addEventListener('animationend',()=>st.classList.remove('pop'));
+renderShapes(); renderBoard();
+
+/* ---------- Engineer's challenge: least wax ---------- */
+// Every cell has the same area (576 sq units). Wax = wall length per cell, scaled so the square hive = 100.
+// Perimeter for equal area: triangle 4.56, square 4.00, hexagon 3.72  ->  114, 100, 93.
+const AREA = 576, W = 150, H = 110;
+function clipWrap(id, body){ return `<svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><clipPath id="${id}"><rect width="${W}" height="${H}"/></clipPath></defs><rect width="${W}" height="${H}" fill="#ffd66b"/><g clip-path="url(#${id})" stroke="${L}" stroke-width="2.5" fill="none" stroke-linecap="round">${body}</g></svg>`; }
+function triHive(){
+  const s=Math.sqrt(4*AREA/Math.sqrt(3)), h=s*Math.sqrt(3)/2; let d='';
+  for(let y=0;y<=H+h;y+=h) d+=`<line x1="0" y1="${y.toFixed(1)}" x2="${W}" y2="${y.toFixed(1)}"/>`;
+  for(let k=-6;k<12;k++){ const x=k*s; d+=`<line x1="${x.toFixed(1)}" y1="0" x2="${(x+H/Math.sqrt(3)*1.2).toFixed(1)}" y2="${(H*1.2).toFixed(1)}"/><line x1="${x.toFixed(1)}" y1="0" x2="${(x-H/Math.sqrt(3)*1.2).toFixed(1)}" y2="${(H*1.2).toFixed(1)}"/>`; }
+  return clipWrap('cTri',d);
+}
+function sqHive(){
+  const s=Math.sqrt(AREA); let d='';
+  for(let x=s/2;x<W;x+=s) d+=`<line x1="${x}" y1="0" x2="${x}" y2="${H}"/>`;
+  for(let y=s/2;y<H;y+=s) d+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}"/>`;
+  return clipWrap('cSq',d);
+}
+function hexHive(){
+  const a=Math.sqrt(2*AREA/(3*Math.sqrt(3))), r3=Math.sqrt(3)*a; let d='';
+  for(let i=-1;i*1.5*a<W+a;i++) for(let j=-1;j*r3<H+r3;j++){
+    const cx=i*1.5*a, cy=j*r3+(i%2?r3/2:0);
+    const pts=[0,60,120,180,240,300].map(t=>((cx+a*Math.cos(t*Math.PI/180)).toFixed(1))+','+((cy+a*Math.sin(t*Math.PI/180)).toFixed(1))).join(' ');
+    d+=`<polygon points="${pts}"/>`;
+  }
+  return clipWrap('cHex',d);
+}
+const HIVES=[{name:'Triangle hive',wax:114,svg:triHive()},{name:'Square hive',wax:100,svg:sqHive()},{name:'Hexagon hive',wax:93,svg:hexHive()}];
+const hives=document.getElementById('hcHives'), hcs=document.getElementById('hcStatus');
+let hcPicked=null;
+function renderHives(){
+  hives.innerHTML = HIVES.map((h,i)=>`<button class="hive-btn ${hcPicked!==null&&h.wax===93?'best':''}" aria-pressed="${hcPicked===i}" data-h="${i}">
+    ${h.svg}<strong>${h.name}</strong>
+    ${hcPicked!==null ? `<div class="wax"><span>Wax used: ${h.wax}</span><div class="bar"><span style="width:${(h.wax/114*100).toFixed(0)}%"></span></div></div>` : ''}
+  </button>`).join('');
+}
+hives.addEventListener('click',e=>{
+  const b=e.target.closest('[data-h]'); if(!b) return; hcPicked=+b.dataset.h; renderHives();
+  if(HIVES[hcPicked].wax===93) setStatus(hcs,'You think like an engineer! The hexagon hive uses the least wax, so the bees save honey for food. Less material, less waste.','good');
+  else setStatus(hcs,`Good guess! Look at the wax bars: the ${HIVES[hcPicked].name.toLowerCase()} uses ${HIVES[hcPicked].wax}, but the hexagon hive uses only 93. That\'s why bees build with hexagons.`);
+  hcs.classList.add('pop');
+});
+hcs.addEventListener('animationend',()=>hcs.classList.remove('pop'));
+renderHives();
+})();
+</script>
+</body>
+</html>
