@@ -29,7 +29,7 @@
   <section class="hero" style="padding-block:40px 8px">
     <span class="eyebrow">Play &amp; Learn</span>
     <h1 style="font-size:clamp(2.6rem,8vw,4.8rem)">The lesson <span class="spark">journey</span></h1>
-    <p class="lede">Follow the path one stop at a time. Each stop has a short video, the big idea in small steps, an art project to make at home, and a game that uses what you learned. Want a favorite host? Tap a crew member to see just their stops.</p>
+    <p class="lede">Seven stops, one for each member of the crew. Each stop has a short video, the big idea in small steps, an art project to make at home, and a game that uses what you learned. Want a favorite host? Tap a crew member to see just their stops.</p>
     <div class="hosts" id="hosts"></div>
   </section>
 
@@ -173,13 +173,319 @@
     </article>
       </div>
 
-      <div class="stop next" data-host="beaver">
+      <div class="stop" data-host="beaver">
         <div class="marker"><div class="num">3</div></div>
-        <div class="panel" style="background:var(--note-blue)">
-          <span class="eyebrow">Coming next · Hosted by the Architect</span>
-          <h3>The Trinket Box</h3>
-          <p>Fold six squares into a box you can decorate and keep. Kids learn how a flat pattern called a net turns into a 3D shape, then test which nets really fold into a box.</p>
+    <article class="lesson" id="trinket">
+      <div class="lesson-head">
+        <span id="hostBeaver"></span>
+        <div class="meta">
+          <span class="eyebrow">Stop 3 · Hosted by the Architect</span>
+          <h2>The Trinket Box</h2>
+          <div class="tags"><span class="tag">3D shapes</span><span class="tag">Architecture</span><span class="tag">15 min</span></div>
         </div>
+      </div>
+      <p class="bubble">"Every building starts flat on paper. Let's find the flat shapes that fold up into a box!"</p>
+
+      <div class="cols">
+        <div class="video" role="img" aria-label="Video placeholder">
+          <div class="inner">
+            <div class="play"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l11 7-11 7z" fill="var(--on-spark)"/></svg></div>
+            <strong>Video coming soon</strong>
+            <small>Beaver folds a cereal box into a trinket box · about 60 sec</small>
+          </div>
+        </div>
+        <div class="learn">
+          <h3>The big idea</h3>
+          <ol class="steps">
+            <li><div><strong>A net is a flat pattern that folds into a 3D shape.</strong>A box (a cube) has 6 square faces, so its net is made of 6 squares joined edge to edge.</div></li>
+            <li><div><strong>Not every 6-square shape works.</strong>Some fold so two squares land on the same side and another side stays open.</div></li>
+            <li><div><strong>Picture the floor.</strong>Choose one square as the bottom. The squares touching it fold up to be walls. Each wall needs its own spot, and one square has to land on top.</div></li>
+            <li><div><strong>Architects think flat and tall at the same time.</strong>A floor plan is flat. The building is tall. Nets are how you move between the two.</div></li>
+          </ol>
+          <div class="make">
+            <span class="eyebrow">Make it with art</span>
+            <p>Draw a cross of six squares on a flattened cereal box (each square about as wide as your hand). Cut it out, fold along every line, and tape the edges. Decorate the outside before you fold: that's the easy way. Now you have a trinket box.</p>
+          </div>
+          <p class="grownups">For grown-ups: nets of three-dimensional shapes (Common Core 6.G.A.4, started early) and spatial reasoning.</p>
+        </div>
+      </div>
+
+      <div class="game" aria-labelledby="tbTitle">
+        <div class="game-head">
+          <h3 id="tbTitle">Game: Fold or flop?</h3>
+          <span class="hive" id="tbScore"></span>
+        </div>
+        <p>Look at the flat shape. Will it fold into a closed box with six sides? Decide, then see the answer.</p>
+        <div class="tb-board">
+          <svg class="tb-svg" id="tbSvg" viewBox="0 0 240 200" role="img" aria-label="A flat shape made of six squares"></svg>
+          <div class="side-panel">
+            <p class="status" id="tbStatus" aria-live="polite">Shape 1 of 8. Imagine folding it up.</p>
+            <div class="row">
+              <button class="btn primary" id="tbYes">Folds into a box</button>
+              <button class="btn" id="tbNo">Won't fold</button>
+            </div>
+            <div class="row">
+              <button class="btn" id="tbNext" hidden>Next shape &rarr;</button>
+              <button class="btn" id="tbRestart" hidden>Play again</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+      </div>
+
+      <div class="stop" data-host="python">
+        <div class="marker"><div class="num">4</div></div>
+    <article class="lesson mint" id="robot">
+      <div class="lesson-head">
+        <span id="hostPython"></span>
+        <div class="meta">
+          <span class="eyebrow">Stop 4 · Hosted by the Coder</span>
+          <h2>Robot Painter</h2>
+          <div class="tags"><span class="tag">Coding</span><span class="tag">Step by step</span><span class="tag">15 min</span></div>
+        </div>
+      </div>
+      <p class="bubble">"A program is just a list of steps. My robot does exactly what I say, so I have to say it exactly right."</p>
+
+      <div class="cols">
+        <div class="video" role="img" aria-label="Video placeholder">
+          <div class="inner">
+            <div class="play"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l11 7-11 7z" fill="var(--on-spark)"/></svg></div>
+            <strong>Video coming soon</strong>
+            <small>Python programs a friend to draw a house · about 60 sec</small>
+          </div>
+        </div>
+        <div class="learn">
+          <h3>The big idea</h3>
+          <ol class="steps">
+            <li><div><strong>A program is a list of instructions, in order.</strong>A computer does exactly what the list says. Nothing more, nothing less.</div></li>
+            <li><div><strong>Big jobs are made of tiny steps.</strong>"Paint a line" is really "move, paint, move, paint, move, paint."</div></li>
+            <li><div><strong>When it goes wrong, that's a bug.</strong>Find the one step that's wrong and fix it. Coders do this all day, and it's not a mistake, it's the job.</div></li>
+          </ol>
+          <div class="make">
+            <span class="eyebrow">Make it with art</span>
+            <p>Be the programmer: write 8 instructions for drawing a house ("draw a square", "draw a triangle on top"...). Hand them to a friend who has to follow them exactly, with no guessing. Compare the drawing to the house in your head. Where was the bug?</p>
+          </div>
+          <p class="grownups">For grown-ups: sequences and debugging (CSTA K-12 standards 1A-AP-10 and 1A-AP-14).</p>
+        </div>
+      </div>
+
+      <div class="game" aria-labelledby="rpTitle">
+        <div class="game-head">
+          <h3 id="rpTitle">Game: Program the painter</h3>
+          <div class="levels" id="rpLevels"></div>
+        </div>
+        <p>Paint every outlined square. Add steps to the program, then press Run and watch the robot follow it.</p>
+        <div class="rp-board">
+          <div class="rp-grid" id="rpGrid"></div>
+          <div class="side-panel">
+            <div>
+              <span class="eyebrow">Add a step</span>
+              <div class="row" style="margin-top:8px">
+                <button class="btn" data-cmd="U" aria-label="Move up">&uarr;</button>
+                <button class="btn" data-cmd="D" aria-label="Move down">&darr;</button>
+                <button class="btn" data-cmd="L" aria-label="Move left">&larr;</button>
+                <button class="btn" data-cmd="R" aria-label="Move right">&rarr;</button>
+                <button class="btn primary" data-cmd="P">Paint</button>
+              </div>
+            </div>
+            <div>
+              <span class="eyebrow">The program</span>
+              <div class="program" id="rpProgram"></div>
+            </div>
+            <p class="status" id="rpStatus" aria-live="polite">Start by adding a step.</p>
+            <div class="row">
+              <button class="btn primary" id="rpRun">Run</button>
+              <button class="btn" id="rpUndo">Undo step</button>
+              <button class="btn" id="rpClear">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+      </div>
+
+      <div class="stop" data-host="dolphin">
+        <div class="marker"><div class="num">5</div></div>
+    <article class="lesson" id="ramp">
+      <div class="lesson-head">
+        <span id="hostDolphin"></span>
+        <div class="meta">
+          <span class="eyebrow">Stop 5 · Hosted by the Physicist</span>
+          <h2>Ramp Racer</h2>
+          <div class="tags"><span class="tag">Energy</span><span class="tag">Friction</span><span class="tag">15 min</span></div>
+        </div>
+      </div>
+      <p class="bubble">"Why does a ball roll farther off a tall ramp? And why does carpet stop it so fast? Let's test it and find out!"</p>
+
+      <div class="cols">
+        <div class="video" role="img" aria-label="Video placeholder">
+          <div class="inner">
+            <div class="play"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l11 7-11 7z" fill="var(--on-spark)"/></svg></div>
+            <strong>Video coming soon</strong>
+            <small>Dolphin races marbles down a cardboard ramp · about 60 sec</small>
+          </div>
+        </div>
+        <div class="learn">
+          <h3>The big idea</h3>
+          <ol class="steps">
+            <li><div><strong>High up means stored energy.</strong>Lift a ball to the top of a ramp and it has energy waiting to be used.</div></li>
+            <li><div><strong>Rolling down turns stored energy into moving energy.</strong>A taller ramp gives the ball more energy, so it's going faster at the bottom.</div></li>
+            <li><div><strong>Friction slows things down.</strong>The floor rubs against the ball. Rough carpet rubs a lot, so the ball stops soon. Smooth ice barely rubs at all.</div></li>
+            <li><div><strong>Physicists change one thing at a time.</strong>Change only the height, or only the floor, and you can tell which one made the difference.</div></li>
+          </ol>
+          <div class="make">
+            <span class="eyebrow">Make it with art</span>
+            <p>Make a ramp from a cereal box and books. Roll a marble onto paper, then a towel, then a tile floor. Put a sticker where it stops each time. Draw the three stickers as a bar chart with your own colors.</p>
+          </div>
+          <p class="grownups">For grown-ups: energy and speed (NGSS 4-PS3-1), forces and motion (3-PS2-1), and fair tests.</p>
+        </div>
+      </div>
+
+      <div class="game" aria-labelledby="rrTitle">
+        <div class="game-head">
+          <h3 id="rrTitle">Game: Land in the zone</h3>
+          <span class="hive" id="rrScore"></span>
+        </div>
+        <p>Pick a ramp height and a floor so the ball stops inside the green zone. Then press Roll.</p>
+        <canvas class="rr-canvas" id="rrCanvas" width="640" height="260" role="img" aria-label="A ball on a ramp with a target zone on the floor"></canvas>
+        <div class="rr-controls">
+          <label for="rrHeight"><span class="eyebrow">Ramp height</span> <strong id="rrHeightVal">5 blocks</strong></label>
+          <input type="range" id="rrHeight" min="1" max="10" value="5">
+          <div>
+            <span class="eyebrow">Floor</span>
+            <div class="row" id="rrFloors" style="margin-top:6px">
+              <button class="lvl" data-floor="ice">Ice</button>
+              <button class="lvl" data-floor="wood" aria-current="true">Wood</button>
+              <button class="lvl" data-floor="carpet">Carpet</button>
+            </div>
+          </div>
+          <p class="status" id="rrStatus" aria-live="polite">Round 1. Where will it stop?</p>
+          <div class="row">
+            <button class="btn primary" id="rrRoll">Roll it</button>
+            <button class="btn" id="rrNew" hidden>Next round &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </article>
+      </div>
+
+      <div class="stop" data-host="falcon">
+        <div class="marker"><div class="num">6</div></div>
+    <article class="lesson mint" id="plane">
+      <div class="lesson-head">
+        <span id="hostFalcon"></span>
+        <div class="meta">
+          <span class="eyebrow">Stop 6 · Hosted by the Aerospace Engineer</span>
+          <h2>Paper Plane Lab</h2>
+          <div class="tags"><span class="tag">Flight</span><span class="tag">Testing</span><span class="tag">20 min</span></div>
+        </div>
+      </div>
+      <p class="bubble">"I toss everything to see if it flies. Then I ask why. Today we're tossing paper planes!"</p>
+
+      <div class="cols">
+        <div class="video" role="img" aria-label="Video placeholder">
+          <div class="inner">
+            <div class="play"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l11 7-11 7z" fill="var(--on-spark)"/></svg></div>
+            <strong>Video coming soon</strong>
+            <small>Falcon tests three planes down a hallway · about 60 sec</small>
+          </div>
+        </div>
+        <div class="learn">
+          <h3>The big idea</h3>
+          <ol class="steps">
+            <li><div><strong>Wings push air down, and the air pushes the wing up.</strong>That upward push is called lift. No air moving over the wing, no lift.</div></li>
+            <li><div><strong>The angle matters.</strong>Tip the nose up a little and the wing gets more lift. Tip it up too much and the air can't flow smoothly. The plane stalls and drops.</div></li>
+            <li><div><strong>Weight up front keeps the nose steady.</strong>A paper clip on the nose stops the plane from flipping up into a stall.</div></li>
+            <li><div><strong>Change one thing, then throw again.</strong>That's how engineers find out what really matters.</div></li>
+          </ol>
+          <div class="make">
+            <span class="eyebrow">Make it with art</span>
+            <p>Fold a paper plane and decorate the wings. Throw it 5 times with no clip and 5 times with a paper clip on the nose. Count your footsteps to where it lands and draw the two sets of throws as dots on a chart.</p>
+          </div>
+          <p class="grownups">For grown-ups: forces on objects (NGSS 3-PS2-1) and testing designs (3-5-ETS1-3).</p>
+        </div>
+      </div>
+
+      <div class="game" aria-labelledby="ppTitle">
+        <div class="game-head">
+          <h3 id="ppTitle">Game: Fly through the hoop</h3>
+          <span class="hive" id="ppScore"></span>
+        </div>
+        <p>Set up the plane so it flies through the hoop. Change one thing at a time and watch what happens.</p>
+        <canvas class="pp-canvas" id="ppCanvas" width="640" height="240" role="img" aria-label="A paper plane flying toward a hoop"></canvas>
+        <div class="pp-controls">
+          <div><span class="eyebrow">Nose angle</span><div class="row" id="ppAngle" style="margin-top:6px"><button class="lvl" data-v="0">Flat</button><button class="lvl" data-v="1" aria-current="true">A little up</button><button class="lvl" data-v="2">Way up</button></div></div>
+          <div><span class="eyebrow">Nose weight</span><div class="row" id="ppWeight" style="margin-top:6px"><button class="lvl" data-v="0" aria-current="true">No clip</button><button class="lvl" data-v="1">1 clip</button><button class="lvl" data-v="2">2 clips</button></div></div>
+          <div><span class="eyebrow">Throw</span><div class="row" id="ppThrow" style="margin-top:6px"><button class="lvl" data-v="0">Gentle</button><button class="lvl" data-v="1" aria-current="true">Medium</button><button class="lvl" data-v="2">Hard</button></div></div>
+          <p class="status" id="ppStatus" aria-live="polite">Round 1. Which setup will reach the hoop?</p>
+          <div class="row">
+            <button class="btn primary" id="ppFly">Throw it</button>
+            <button class="btn" id="ppNew" hidden>Next hoop &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </article>
+      </div>
+
+      <div class="stop" data-host="octopus">
+        <div class="marker"><div class="num">7</div></div>
+    <article class="lesson" id="gears">
+      <div class="lesson-head">
+        <span id="hostOctopus"></span>
+        <div class="meta">
+          <span class="eyebrow">Stop 7 · Hosted by the Mechanical Engineer</span>
+          <h2>Gear Garage</h2>
+          <div class="tags"><span class="tag">Machines</span><span class="tag">Ratios</span><span class="tag">15 min</span></div>
+        </div>
+      </div>
+      <p class="bubble">"Gears are my favorite. Turn one and the whole machine wakes up. Let's build a gear train!"</p>
+
+      <div class="cols">
+        <div class="video" role="img" aria-label="Video placeholder">
+          <div class="inner">
+            <div class="play"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3l11 7-11 7z" fill="var(--on-spark)"/></svg></div>
+            <strong>Video coming soon</strong>
+            <small>Octopus builds cardboard gears · about 60 sec</small>
+          </div>
+        </div>
+        <div class="learn">
+          <h3>The big idea</h3>
+          <ol class="steps">
+            <li><div><strong>Gears are wheels with teeth.</strong>When the teeth mesh, turning one gear turns the next one.</div></li>
+            <li><div><strong>Meshed gears turn in opposite directions.</strong>Add a third gear and the last one turns the same way as the first again.</div></li>
+            <li><div><strong>Size changes speed.</strong>A small gear turning a big gear makes it turn slower, but with a stronger push. Big turning small: faster, but weaker.</div></li>
+            <li><div><strong>Count teeth to predict it.</strong>A 12-tooth gear turning a 24-tooth gear: 12 ÷ 24 = half the speed. Every turn of the small gear is half a turn of the big one.</div></li>
+          </ol>
+          <div class="make">
+            <span class="eyebrow">Make it with art</span>
+            <p>Cut three gears out of cardboard: trace a bottle cap, a mug, and a bowl, then cut teeth around the edges. Pin them to a cardboard box with pushpins so the teeth touch. Draw a face on one and turn another. Which way does the face spin?</p>
+          </div>
+          <p class="grownups">For grown-ups: simple machines, ratios as a first look (Common Core 6.RP.A.1), and engineering design (NGSS 3-5-ETS1-1).</p>
+        </div>
+      </div>
+
+      <div class="game" aria-labelledby="ggTitle">
+        <div class="game-head">
+          <h3 id="ggTitle">Game: Build the gear train</h3>
+          <span class="hive" id="ggScore"></span>
+        </div>
+        <p id="ggGoal" class="bubble"></p>
+        <div class="gg-board">
+          <svg class="gg-svg" id="ggSvg" viewBox="0 0 420 220" role="img" aria-label="A train of gears"></svg>
+          <div class="side-panel">
+            <div><span class="eyebrow">Middle gear</span><div class="row" id="ggB" style="margin-top:6px"><button class="lvl" data-v="6">6 teeth</button><button class="lvl" data-v="12" aria-current="true">12 teeth</button><button class="lvl" data-v="24">24 teeth</button></div></div>
+            <div><span class="eyebrow">Last gear</span><div class="row" id="ggC" style="margin-top:6px"><button class="lvl" data-v="0" aria-current="true">None</button><button class="lvl" data-v="6">6 teeth</button><button class="lvl" data-v="12">12 teeth</button><button class="lvl" data-v="24">24 teeth</button></div></div>
+            <p class="status" id="ggStatus" aria-live="polite"></p>
+            <div class="row">
+              <button class="btn primary" id="ggCheck">Check it</button>
+              <button class="btn" id="ggNext" hidden>Next challenge &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+      </div>
       </div>
 
     </div>
@@ -198,6 +504,7 @@
 const {CAST, kid, byId} = window.SS;
 document.getElementById('hostSpider').innerHTML = kid(byId('spider'));
 document.getElementById('hostBee').innerHTML = kid(byId('bee'));
+['Beaver','Python','Dolphin','Falcon','Octopus'].forEach(n=>{ document.getElementById('host'+n).innerHTML = kid(byId(n.toLowerCase())); });
 
 /* ---- host filter ---- */
 const stops=[...document.querySelectorAll('.stop')], hostsEl=document.getElementById('hosts'), empty=document.getElementById('journeyEmpty');
@@ -395,6 +702,254 @@ hives.addEventListener('click',e=>{
 });
 hcs.addEventListener('animationend',()=>hcs.classList.remove('pop'));
 renderHives();
+
+/* ---------- helpers shared by the new games ---------- */
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function pickGroup(el, cb){ el.addEventListener('click',e=>{const b=e.target.closest('[data-v],[data-floor]'); if(!b) return; el.querySelectorAll('.lvl').forEach(x=>x.removeAttribute('aria-current')); b.setAttribute('aria-current','true'); cb(b.dataset.v??b.dataset.floor);}); }
+function pop(el){ el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+
+/* ---------- Trinket Box: fold or flop ---------- */
+// Each shape is six squares. "folds" was checked with a cube-rolling test: exactly 11 of the 35 six-square shapes fold into a cube.
+const NETS=[
+  {cells:[[1,0],[0,1],[1,1],[2,1],[1,2],[1,3]], folds:true,  why:'This is the classic cross. The middle square is the floor, the four around it fold up as walls, and the top one closes the lid.'},
+  {cells:[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0]], folds:false, why:'Six in a line only wraps around four sides. The two squares on the ends fold onto sides that are already covered, and two sides stay open.'},
+  {cells:[[0,0],[1,0],[2,0],[1,1],[1,2],[1,3]], folds:true,  why:'The T works. The second square down is the floor, and the long tail wraps over the top and down the far side.'},
+  {cells:[[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]], folds:false, why:'A 2-by-3 block has no way to fold up. Any square you pick as the floor has neighbors that can\'t both become walls.'},
+  {cells:[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3]], folds:true,  why:'The staircase works. Fold each step up and the squares spiral around the box, with the ends meeting on the lid.'},
+  {cells:[[0,0],[0,1],[1,1],[2,1],[3,1],[3,0]], folds:false, why:'In this U shape, the two ends fold up and land on the same side of the box, leaving a different side open.'},
+  {cells:[[0,1],[1,0],[1,1],[2,1],[3,1],[3,2]], folds:true,  why:'Four in a row make the floor, front, lid and back. The two extras, one on each end and on opposite sides, become the left and right walls.'},
+  {cells:[[0,0],[1,0],[2,0],[3,0],[0,1],[3,1]], folds:false, why:'Both extra squares are on the same side of the row, so they fold onto the same wall. One wall gets two squares and the other gets none.'}
+];
+(function(){
+  const svg=document.getElementById('tbSvg'), st=document.getElementById('tbStatus'), score=document.getElementById('tbScore');
+  const yes=document.getElementById('tbYes'), no=document.getElementById('tbNo'), next=document.getElementById('tbNext'), restart=document.getElementById('tbRestart');
+  let i=0, right=0, answered=false;
+  function draw(){
+    const n=NETS[i], S=40, w=Math.max(...n.cells.map(c=>c[0]))+1, h=Math.max(...n.cells.map(c=>c[1]))+1;
+    const ox=(240-w*S)/2, oy=(200-h*S)/2;
+    svg.innerHTML=n.cells.map(([x,y])=>`<rect x="${ox+x*S+2}" y="${oy+y*S+2}" width="${S-4}" height="${S-4}" rx="4" fill="${css('--note-blue')}" stroke="${css('--ink')}" stroke-width="3"/>`).join('');
+    score.textContent=`Boxes built: ${right} of ${NETS.length}`;
+  }
+  function answer(saysFolds){
+    if(answered) return; answered=true;
+    const n=NETS[i], ok=saysFolds===n.folds; if(ok) right++;
+    st.textContent=(ok?'Right! ':'Not this time. ')+n.why; st.className='status '+(ok?'good':'bad'); pop(st);
+    yes.disabled=no.disabled=true; next.hidden=i>=NETS.length-1; restart.hidden=i<NETS.length-1; draw();
+    if(i>=NETS.length-1){ st.textContent+=` You built ${right} of ${NETS.length} boxes.`; }
+  }
+  yes.addEventListener('click',()=>answer(true)); no.addEventListener('click',()=>answer(false));
+  next.addEventListener('click',()=>{ i++; answered=false; yes.disabled=no.disabled=false; next.hidden=true; st.textContent=`Shape ${i+1} of ${NETS.length}. Imagine folding it up.`; st.className='status'; draw(); });
+  restart.addEventListener('click',()=>{ i=0; right=0; answered=false; yes.disabled=no.disabled=false; restart.hidden=true; st.textContent='Shape 1 of 8. Imagine folding it up.'; st.className='status'; draw(); });
+  draw();
+})();
+
+/* ---------- Robot Painter ---------- */
+(function(){
+  const N=5, grid=document.getElementById('rpGrid'), prog=document.getElementById('rpProgram'), st=document.getElementById('rpStatus');
+  const LEVELS=[
+    {name:'Stripe', start:[0,4], target:[[0,4],[1,4],[2,4],[3,4]]},
+    {name:'Corner', start:[0,4], target:[[0,4],[0,3],[0,2],[1,2],[2,2]]},
+    {name:'Smile', start:[0,2], target:[[0,2],[1,3],[2,3],[3,3],[4,2],[1,0],[3,0]]}
+  ];
+  const ICON={U:'↑',D:'↓',L:'←',R:'→',P:'Paint'};
+  let lvl=0, program=[], pos=[0,4], painted=new Set(), running=false, done=new Set();
+  const key=(x,y)=>x+','+y;
+  function renderLevels(){ document.getElementById('rpLevels').innerHTML=LEVELS.map((l,i)=>`<button class="lvl ${done.has(i)?'done':''}" aria-current="${i===lvl}" data-l="${i}">${i+1}. ${l.name}</button>`).join(''); }
+  function renderGrid(){
+    const t=new Set(LEVELS[lvl].target.map(c=>key(...c))); let h='';
+    for(let y=0;y<N;y++) for(let x=0;x<N;x++){
+      const k=key(x,y), isT=t.has(k), isP=painted.has(k), here=pos[0]===x&&pos[1]===y;
+      h+=`<div class="rp-cell ${isT?'target':''} ${isP?(isT?'painted':'oops'):''}">${here?'<span class="robot" aria-label="robot">🤖</span>':''}</div>`;
+    }
+    grid.innerHTML=h;
+  }
+  function renderProgram(){ prog.innerHTML=program.length?program.map((c,i)=>`<span class="chip ${c==='P'?'paint':''}" data-i="${i}">${i+1}. ${ICON[c]}</span>`).join(''):'<span class="hint">No steps yet.</span>'; }
+  function reset(){ pos=[...LEVELS[lvl].start]; painted=new Set(); renderGrid(); }
+  function load(i){ lvl=i; program=[]; reset(); renderLevels(); renderProgram(); st.textContent=`Level ${i+1}: ${LEVELS[i].name}. The robot starts on the square it's standing on.`; st.className='status'; }
+  document.getElementById('rpLevels').addEventListener('click',e=>{const b=e.target.closest('[data-l]'); if(b&&!running) load(+b.dataset.l);});
+  document.querySelectorAll('#robot [data-cmd]').forEach(b=>b.addEventListener('click',()=>{ if(running) return; if(program.length>=30){ st.textContent='30 steps is the limit. Try a shorter program.'; return; } program.push(b.dataset.cmd); renderProgram(); st.textContent=`${program.length} step${program.length>1?'s':''}. Press Run when you\'re ready.`; st.className='status'; }));
+  document.getElementById('rpUndo').addEventListener('click',()=>{ if(running) return; program.pop(); renderProgram(); });
+  document.getElementById('rpClear').addEventListener('click',()=>{ if(running) return; program=[]; renderProgram(); reset(); st.textContent='Program cleared.'; st.className='status'; });
+  document.getElementById('rpRun').addEventListener('click',async()=>{
+    if(running||!program.length) return; running=true; reset(); st.className='status'; st.textContent='Running...';
+    const delay=reduceMotion?0:320;
+    for(let i=0;i<program.length;i++){
+      const c=program[i]; prog.querySelectorAll('.chip').forEach((ch,j)=>ch.classList.toggle('now',j===i));
+      if(c==='P') painted.add(key(...pos));
+      else { const d={U:[0,-1],D:[0,1],L:[-1,0],R:[1,0]}[c]; const nx=pos[0]+d[0], ny=pos[1]+d[1];
+        if(nx<0||ny<0||nx>=N||ny>=N){ renderGrid(); st.textContent=`Bump! Step ${i+1} walks the robot off the grid. That\'s a bug: fix that step.`; st.className='status bad'; running=false; return; }
+        pos=[nx,ny]; }
+      renderGrid(); await new Promise(r=>setTimeout(r,delay));
+    }
+    prog.querySelectorAll('.chip').forEach(ch=>ch.classList.remove('now'));
+    const t=new Set(LEVELS[lvl].target.map(c=>key(...c)));
+    const missing=[...t].filter(k=>!painted.has(k)).length, extra=[...painted].filter(k=>!t.has(k)).length;
+    if(!missing&&!extra){ done.add(lvl); renderLevels(); st.textContent=`Program complete in ${program.length} steps! ${lvl<LEVELS.length-1?'Try the next level.':'You finished every picture. Python is proud of you!'}`; st.className='status good'; pop(st); }
+    else { st.textContent=`Close! ${missing?missing+' square'+(missing>1?'s':'')+' still need paint. ':''}${extra?extra+' square'+(extra>1?'s':'')+' got painted by mistake (marked ✕). ':''}Find the bug and run again.`; st.className='status bad'; }
+    running=false;
+  });
+  load(0);
+})();
+
+/* ---------- Ramp Racer ---------- */
+(function(){
+  const cv=document.getElementById('rrCanvas'), ctx=cv.getContext('2d'), st=document.getElementById('rrStatus'), score=document.getElementById('rrScore');
+  const hSlider=document.getElementById('rrHeight'), hVal=document.getElementById('rrHeightVal');
+  const FLOOR={ice:{k:3.2,label:'ice'}, wood:{k:2.0,label:'wood'}, carpet:{k:1.0,label:'carpet'}};
+  let floor='wood', round=1, hits=0, zone=[14,18], ballX=null, rolling=false, lastDist=null;
+  const W=cv.width, H=cv.height, groundY=200, rampW=120, blockPx=8, px=d=>rampW+d*20; // 1 block of rolling distance = 20px
+  function distFor(h,f){ return Math.round(h*FLOOR[f].k*10)/10; }
+  function newRound(){ const lo=3+Math.floor(Math.random()*18); zone=[lo,lo+3]; ballX=null; lastDist=null; st.textContent=`Round ${round}. Where will it stop?`; st.className='status'; document.getElementById('rrNew').hidden=true; document.getElementById('rrRoll').disabled=false; draw(); }
+  function draw(ballD, progress){
+    const ink=css('--ink'), paper=css('--card'), spark=css('--spark'), ok=css('--ok'), note=css('--note-blue');
+    ctx.clearRect(0,0,W,H); ctx.fillStyle=paper; ctx.fillRect(0,0,W,H);
+    const h=+hSlider.value, top=groundY-h*blockPx*2;
+    // floor texture
+    ctx.fillStyle={ice:'#d9efff',wood:'#e8c99a',carpet:'#c9b8e8'}[floor]; ctx.fillRect(rampW,groundY,W-rampW,H-groundY);
+    if(floor==='carpet'){ ctx.strokeStyle='rgba(0,0,0,.15)'; for(let x=rampW;x<W;x+=6){ ctx.beginPath(); ctx.moveTo(x,groundY); ctx.lineTo(x+2,groundY+8); ctx.stroke(); } }
+    if(floor==='wood'){ ctx.strokeStyle='rgba(0,0,0,.12)'; for(let x=rampW;x<W;x+=40){ ctx.beginPath(); ctx.moveTo(x,groundY); ctx.lineTo(x,H); ctx.stroke(); } }
+    // zone
+    ctx.fillStyle=ok; ctx.globalAlpha=.35; ctx.fillRect(px(zone[0]),groundY-6,px(zone[1])-px(zone[0]),12); ctx.globalAlpha=1;
+    ctx.fillStyle=ink; ctx.font='bold 12px Andika, sans-serif'; ctx.textAlign='center'; ctx.fillText(`${zone[0]}–${zone[1]} blocks`,(px(zone[0])+px(zone[1]))/2,groundY-14);
+    // ruler ticks
+    ctx.strokeStyle=ink; ctx.lineWidth=1; for(let d=0;d<=25;d+=5){ ctx.beginPath(); ctx.moveTo(px(d),groundY); ctx.lineTo(px(d),groundY+(d%10?5:9)); ctx.stroke(); if(d%10===0&&d>0) ctx.fillText(d,px(d),groundY+36); }
+    // ramp (stacked blocks + slope)
+    ctx.fillStyle=note; ctx.strokeStyle=ink; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(0,top); ctx.lineTo(rampW,groundY); ctx.lineTo(0,groundY); ctx.closePath(); ctx.fill(); ctx.stroke();
+    for(let b=0;b<h;b++){ ctx.strokeRect(2,groundY-(b+1)*blockPx*2,24,blockPx*2); }
+    ctx.beginPath(); ctx.moveTo(0,groundY); ctx.lineTo(W,groundY); ctx.stroke();
+    // ball
+    let bx,by; if(ballD==null){ bx=14; by=top-10; } else if(progress<1){ bx=14+(rampW-14)*progress; by=top-10+(groundY-top)*progress; } else { bx=px(ballD); by=groundY-10; }
+    ctx.fillStyle=spark; ctx.beginPath(); ctx.arc(bx,by,10,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle=ink; ctx.beginPath(); ctx.arc(bx-3,by-3,2,0,Math.PI*2); ctx.fill();
+    if(lastDist!=null){ ctx.fillStyle=ink; ctx.textAlign='left'; ctx.font='bold 14px Andika, sans-serif'; ctx.fillText(`Stopped at ${lastDist} blocks`,rampW+8,40); }
+    score.textContent=`Hits: ${hits} of 3`;
+  }
+  hSlider.addEventListener('input',()=>{ hVal.textContent=`${hSlider.value} block${hSlider.value>1?'s':''}`; draw(); });
+  pickGroup(document.getElementById('rrFloors'),v=>{ floor=v; draw(); });
+  document.getElementById('rrRoll').addEventListener('click',()=>{
+    if(rolling) return; rolling=true; document.getElementById('rrRoll').disabled=true;
+    const h=+hSlider.value, d=distFor(h,floor), t0=performance.now(), dur=reduceMotion?0:900+d*60;
+    (function frame(now){
+      const p=dur?Math.min(1,(now-t0)/dur):1;
+      if(p<0.35){ draw(d,p/0.35); } else { const q=(p-0.35)/0.65, eased=1-Math.pow(1-q,2); draw(d*eased,1); }
+      if(p<1) requestAnimationFrame(frame); else finish(d);
+    })(t0);
+  });
+  function finish(d){
+    rolling=false; lastDist=d; draw(d,1);
+    const inZone=d>=zone[0]&&d<=zone[1]; const f=FLOOR[floor].label, h=hSlider.value;
+    if(inZone){ hits++; round++; st.textContent=`In the zone! ${h} blocks high on ${f} rolled ${d} blocks. ${hits>=3?'Three hits. You\'re a physicist!':'Nice prediction.'}`; st.className='status good'; pop(st);
+      if(hits>=3){ document.getElementById('rrRoll').disabled=true; score.textContent='Hits: 3 of 3'; return; } document.getElementById('rrNew').hidden=false; }
+    else { const short=d<zone[0]; st.textContent=`It stopped at ${d} blocks, ${short?'short of':'past'} the zone. ${short?'Try a taller ramp or a smoother floor.':'Try a shorter ramp or a rougher floor.'}`; st.className='status bad'; document.getElementById('rrRoll').disabled=false; }
+    draw(d,1);
+  }
+  document.getElementById('rrNew').addEventListener('click',newRound);
+  newRound();
+})();
+
+/* ---------- Paper Plane Lab ---------- */
+(function(){
+  const cv=document.getElementById('ppCanvas'), ctx=cv.getContext('2d'), st=document.getElementById('ppStatus'), score=document.getElementById('ppScore');
+  const W=cv.width, H=cv.height, groundY=210, startX=40, startY=120;
+  let angle=1, weight=0, thr=1, hoopX=400, hoopY=120, hits=0, round=1, flying=false;
+  // outcome of a setup: range in px and a path shape
+  function outcome(){
+    const base=[180,300,440][thr];
+    let mult=[0.85,1.25,0.55][angle], shape='glide';
+    if(angle===2){ shape='stall'; }
+    if(angle>=1&&weight===0){ mult*=0.6; shape='flip'; }          // nose-up with no weight flips up
+    if(weight===2){ mult*=0.7; shape='dive'; }                   // too much weight dives
+    if(angle===0&&weight===1){ mult*=1.0; }
+    return {range:Math.round(base*mult), shape};
+  }
+  function pathPoint(o,t){ // t 0..1 along the flight; returns x,y
+    const x=startX+o.range*t; let y;
+    if(o.shape==='glide') y=startY-30*Math.sin(Math.PI*t)+ (groundY-startY)*t*t*0.9;
+    else if(o.shape==='stall') y=startY-70*Math.sin(Math.PI*Math.min(1,t*1.6)) + (groundY-startY)*Math.max(0,t-0.4)*1.6;
+    else if(o.shape==='flip') y=startY-50*Math.sin(Math.PI*t*1.2)+(groundY-startY)*t*t*1.2;
+    else y=startY+(groundY-startY)*t*1.1;
+    return [x,Math.min(groundY-6,y)];
+  }
+  function draw(o,t){
+    const ink=css('--ink'), paper=css('--card'), spark=css('--spark'), ok=css('--ok');
+    ctx.clearRect(0,0,W,H); ctx.fillStyle=paper; ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle=ink; ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(0,groundY); ctx.lineTo(W,groundY); ctx.stroke();
+    // hoop
+    ctx.strokeStyle=ok; ctx.lineWidth=6; ctx.beginPath(); ctx.ellipse(hoopX,hoopY,10,34,0,0,Math.PI*2); ctx.stroke();
+    ctx.strokeStyle=ink; ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(hoopX,hoopY+34); ctx.lineTo(hoopX,groundY); ctx.stroke();
+    // thrower (Falcon) stand-in
+    ctx.fillStyle=spark; ctx.beginPath(); ctx.arc(startX-16,startY+10,12,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    // trail
+    if(o&&t>0){ ctx.strokeStyle=ink; ctx.setLineDash([4,6]); ctx.lineWidth=2; ctx.beginPath(); for(let s=0;s<=t;s+=0.02){ const [x,y]=pathPoint(o,s); s===0?ctx.moveTo(x,y):ctx.lineTo(x,y);} ctx.stroke(); ctx.setLineDash([]); }
+    // plane
+    const [x,y]=o?pathPoint(o,t):[startX,startY];
+    const [nx,ny]=o?pathPoint(o,Math.min(1,t+0.02)):[startX+10,startY];
+    const a=Math.atan2(ny-y,nx-x)+(o&&o.shape==='flip'&&t>0.5?-1.2:0);
+    ctx.save(); ctx.translate(x,y); ctx.rotate(a); ctx.fillStyle='#fff'; ctx.strokeStyle=ink; ctx.lineWidth=2.5;
+    ctx.beginPath(); ctx.moveTo(18,0); ctx.lineTo(-14,-9); ctx.lineTo(-8,0); ctx.lineTo(-14,9); ctx.closePath(); ctx.fill(); ctx.stroke();
+    if(weight>0){ ctx.fillStyle='#8a8f9c'; ctx.fillRect(8,-3,6,6); if(weight>1) ctx.fillRect(1,-3,6,6); }
+    ctx.restore();
+    score.textContent=`Hoops: ${hits} of 3`;
+  }
+  pickGroup(document.getElementById('ppAngle'),v=>{angle=+v; draw();});
+  pickGroup(document.getElementById('ppWeight'),v=>{weight=+v; draw();});
+  pickGroup(document.getElementById('ppThrow'),v=>{thr=+v; draw();});
+  function newRound(){ hoopX=220+Math.floor(Math.random()*7)*40; hoopY=100+Math.floor(Math.random()*3)*20; st.textContent=`Round ${round}. Which setup will reach the hoop?`; st.className='status'; document.getElementById('ppNew').hidden=true; document.getElementById('ppFly').disabled=false; draw(); }
+  document.getElementById('ppFly').addEventListener('click',()=>{
+    if(flying) return; flying=true; document.getElementById('ppFly').disabled=true;
+    const o=outcome(), t0=performance.now(), dur=reduceMotion?0:900+o.range*2;
+    (function frame(now){ const p=dur?Math.min(1,(now-t0)/dur):1; draw(o,p); if(p<1) requestAnimationFrame(frame); else finish(o); })(t0);
+  });
+  function finish(o){
+    flying=false;
+    // did the path pass through the hoop? find the y where x = hoopX
+    let through=false; if(o.range+startX>=hoopX){ const t=(hoopX-startX)/o.range; const [,y]=pathPoint(o,t); through=Math.abs(y-hoopY)<=34; }
+    const WHY={stall:'The nose was way up, so the air stopped flowing over the wing. That\'s a stall: it climbed, then dropped.', flip:'With the nose up and no weight in front, the plane flipped upward and lost its speed.', dive:'Two clips made the nose too heavy, so it dove toward the floor.', glide:'A smooth glide.'};
+    if(through){ hits++; round++; score.textContent=`Hoops: ${hits} of 3`; st.textContent=`Through the hoop! ${WHY[o.shape]} ${hits>=3?'Three in a row. Carmen would be impressed!':''}`; st.className='status good'; pop(st); if(hits>=3){ return; } document.getElementById('ppNew').hidden=false; }
+    else { const short=o.range+startX<hoopX; st.textContent=`Missed. ${WHY[o.shape]} ${short?'It landed short of the hoop.':'It went past or around the hoop.'} Change one thing and throw again.`; st.className='status bad'; document.getElementById('ppFly').disabled=false; }
+  }
+  document.getElementById('ppNew').addEventListener('click',newRound);
+  newRound();
+})();
+
+/* ---------- Gear Garage ---------- */
+(function(){
+  const svg=document.getElementById('ggSvg'), st=document.getElementById('ggStatus'), goalEl=document.getElementById('ggGoal'), score=document.getElementById('ggScore');
+  const A=12; let B=12, C=0, angle=0, raf=null, idx=0, solved=0;
+  const CHALLENGES=[
+    {goal:'Make the last gear spin twice as fast as the handle.', test:(s,d)=>Math.abs(s-2)<0.01, hint:'Faster means the last gear needs fewer teeth than the one turning it.'},
+    {goal:'Make the last gear turn the same direction as the handle, and slower than it.', test:(s,d)=>d===1&&s<0.99, hint:'Same direction needs three gears. Slower needs a big last gear.'},
+    {goal:'Make the last gear spin half as fast as the handle, turning the opposite way.', test:(s,d)=>Math.abs(s-0.5)<0.01&&d===-1, hint:'Opposite direction means two gears. 12 ÷ ? = one half.'}
+  ];
+  const r=t=>t*3.4; // pitch radius from tooth count
+  function gearPath(t){ const R=r(t), Ri=R-5, Ro=R+5, steps=t*2, p=[]; for(let i=0;i<steps;i++){ const a0=(i/steps)*Math.PI*2, a1=((i+0.5)/steps)*Math.PI*2, rr=i%2?Ri:Ro, rn=i%2?Ro:Ri; p.push(`${i?'L':'M'}${(Math.cos(a0)*rr).toFixed(1)},${(Math.sin(a0)*rr).toFixed(1)} L${(Math.cos(a1)*rr).toFixed(1)},${(Math.sin(a1)*rr).toFixed(1)}`); } return p.join(' ')+'Z'; }
+  function train(){ const g=[{t:A,x:0}]; let x=0; if(B){ x+=r(A)+r(B); g.push({t:B,x}); } if(C){ x+=r(B)+r(C); g.push({t:C,x}); } return g; }
+  function ratio(){ const g=train(); const last=g[g.length-1]; return {speed:A/last.t, dir:g.length%2?1:-1}; }
+  function draw(){
+    const g=train(), total=g[g.length-1].x+r(g[g.length-1].t)+r(A), ox=(420-total)/2+r(A), cy=110;
+    const ink=css('--ink'), fills=[css('--spark'),css('--note-blue'),css('--note-mint')];
+    svg.innerHTML=g.map((gear,i)=>{ const dir=i%2?-1:1, rot=angle*dir*(A/gear.t) + (i%2?180/gear.t:0);
+      return `<g transform="translate(${(ox+gear.x).toFixed(1)},${cy}) rotate(${rot.toFixed(2)})"><path d="${gearPath(gear.t)}" fill="${fills[i]}" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/><circle r="6" fill="${ink}"/><line x1="0" y1="0" x2="0" y2="${(-r(gear.t)+8).toFixed(1)}" stroke="${ink}" stroke-width="3" stroke-linecap="round"/></g>
+      <text x="${(ox+gear.x).toFixed(1)}" y="${i===0?cy-r(gear.t)-14:cy+r(gear.t)+22}" text-anchor="middle" font-family="Andika, sans-serif" font-weight="700" font-size="12" fill="${ink}">${i===0?'Handle · ':''}${i===g.length-1&&i>0?'Last · ':''}${gear.t} teeth</text>`; }).join('');
+    const {speed,dir}=ratio(); score.textContent=`Last gear: ${speed===1?'same speed':speed>1?speed+'× faster':'1/'+Math.round(1/speed)+' speed'}, ${dir===1?'same way':'opposite way'}`;
+  }
+  function spin(now){ if(!reduceMotion) angle=(now/25)%360; draw(); raf=requestAnimationFrame(spin); }
+  pickGroup(document.getElementById('ggB'),v=>{B=+v; st.className='status'; st.textContent=''; draw(); });
+  pickGroup(document.getElementById('ggC'),v=>{C=+v; st.className='status'; st.textContent=''; draw(); });
+  function load(){ goalEl.textContent='Challenge '+(idx+1)+' of '+CHALLENGES.length+': '+CHALLENGES[idx].goal; st.textContent=''; st.className='status'; document.getElementById('ggNext').hidden=true; }
+  document.getElementById('ggCheck').addEventListener('click',()=>{
+    const {speed,dir}=ratio(), ch=CHALLENGES[idx], ok=ch.test(speed,dir);
+    const g=train(), last=g[g.length-1];
+    const calc=g.length>2?`${A} ÷ ${B} × ${B} ÷ ${C} = ${A} ÷ ${C}`:`${A} ÷ ${last.t}`;
+    if(ok){ solved++; st.textContent=`That\'s it! ${calc}: the last gear turns at ${speed===1?'the same speed':speed>1?speed+' times the speed':'1/'+Math.round(1/speed)+' the speed'}, ${dir===1?'the same way':'the opposite way'}. ${idx<CHALLENGES.length-1?'':'All three solved. Harlo says you\'re hired!'}`; st.className='status good'; pop(st); if(idx<CHALLENGES.length-1) document.getElementById('ggNext').hidden=false; }
+    else { st.textContent=`Not yet. Right now ${calc} gives ${speed===1?'the same speed':speed>1?speed+'× faster':'1/'+Math.round(1/speed)+' speed'}, ${dir===1?'same way':'opposite way'}. Hint: ${ch.hint}`; st.className='status bad'; }
+  });
+  document.getElementById('ggNext').addEventListener('click',()=>{ idx++; load(); });
+  load(); if(reduceMotion) draw(); else raf=requestAnimationFrame(spin);
+})();
+
 })();
 </script>
 </body>

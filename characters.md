@@ -47,7 +47,11 @@ Names are not final. "Working name" means a name being considered.
 - Personality: playful, curious, enthusiastic
 - Asks "How will this affect everything around it?" and looks at the surrounding environment
 
-## Lesson hosts so far
+## Lesson hosts
 - Mirror Magic (symmetry): the Mathematician
-- Honeycomb Hunt (tiling and angles): the Environmental Engineer
-- The Trinket Box (coming next): the Architect
+- Honeycomb Hunt (tiling, angles, least material): the Environmental Engineer
+- The Trinket Box (nets of a cube): the Architect
+- Robot Painter (sequencing, debugging): the Coder
+- Ramp Racer (energy, friction): the Physicist
+- Paper Plane Lab (lift, angle, nose weight): the Aerospace Engineer
+- Gear Garage (gear direction and ratios): the Mechanical Engineer

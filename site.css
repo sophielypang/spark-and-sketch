@@ -32,6 +32,7 @@
   --grid-empty:#2c3142; color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55;padding-inline:16px;padding-block:0 48px}
 .wrap{max-width:1080px;margin-inline:auto}
 h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.05;text-wrap:balance;margin:0}
@@ -245,3 +246,36 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.08)}100%{transform:scale(1)}}
 .pop{animation:pop .35s ease-out}
+
+/* trinket box game */
+.tb-board{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:700px){.tb-board{grid-template-columns:minmax(0,1fr)}}
+.tb-svg{width:100%;max-width:280px;aspect-ratio:6/5;border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card)}
+
+/* robot painter */
+.rp-board{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:700px){.rp-board{grid-template-columns:minmax(0,1fr)}}
+.rp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-width:320px;width:100%;padding:8px;border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card)}
+.rp-cell{aspect-ratio:1;border:2px solid var(--ink);border-radius:6px;background:var(--grid-empty);display:grid;place-items:center;position:relative;font-size:1.6rem}
+.rp-cell.target{border-style:dashed;border-width:3px}
+.rp-cell.painted{background:var(--p2);border-style:solid}
+.rp-cell.oops{background:var(--p1)}
+.rp-cell.oops::after{content:"✕";position:absolute;inset:0;display:grid;place-items:center;font-weight:700;color:var(--card)}
+.rp-cell .robot{position:relative;z-index:1}
+.program{display:flex;gap:6px;flex-wrap:wrap;min-height:38px;margin-top:8px;padding:8px;border:2px dashed var(--ink);border-radius:12px}
+.program .chip{font-size:.85rem;font-weight:700;padding:3px 10px;border-radius:999px;border:2px solid var(--ink);background:var(--card)}
+.program .chip.paint{background:var(--p2);color:#fff;border-color:var(--ink)}
+.program .chip.now{outline:3px solid var(--spark);outline-offset:1px}
+.program .hint{color:var(--muted);font-size:.9rem}
+
+/* ramp racer & paper plane */
+.rr-canvas,.pp-canvas{width:100%;max-width:640px;height:auto;display:block;border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card)}
+.rr-controls,.pp-controls{display:grid;gap:14px;max-width:640px}
+.rr-controls input[type=range]{width:100%;accent-color:var(--spark)}
+.rr-controls label{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+
+/* gear garage */
+.gg-board{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:760px){.gg-board{grid-template-columns:minmax(0,1fr)}}
+.gg-svg{width:100%;max-width:420px;aspect-ratio:21/11;border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card)}
+#ggGoal{max-width:60ch}
