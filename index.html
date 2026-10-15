@@ -179,9 +179,9 @@ function drawHive(){
       <polygon class="honey" points="${hexPts(x,y,R)}"/><polygon class="comb" points="${hexPts(x,y,R)}"/><polygon class="inner" points="${hexPts(x,y,R-13)}"/></g>`);
     walls.push(`<polygon class="wall-edge" points="${hexPts(x,y,R)}"/>`);
     faces.push(`<g class="hcell-face" pointer-events="none">
-      <g transform="translate(${(x-37).toFixed(1)},${(y-57).toFixed(1)}) scale(0.58)">${kid(c).replace('<svg ','<svg width="128" height="128" ')}</g>
-      <text class="hcell-text" x="${x.toFixed(1)}" y="${(y+36).toFixed(1)}">${c.name}</text>
-      ${jobLines(c.role).map((t,i)=>`<text class="job" x="${x.toFixed(1)}" y="${(y+48+i*12).toFixed(1)}">${t}</text>`).join('')}
+      <g transform="translate(${(x-36).toFixed(1)},${(y-68).toFixed(1)}) scale(0.56)">${kid(c).replace('<svg ','<svg width="128" height="128" ')}</g>
+      <text class="hcell-text" x="${x.toFixed(1)}" y="${(y+24).toFixed(1)}">${c.name}</text>
+      ${jobLines(c.role).map((t,i)=>`<text class="job" x="${x.toFixed(1)}" y="${(y+36+i*11).toFixed(1)}">${t}</text>`).join('')}
     </g>`);
   });
   // draw order: honey fills, dark wall edges, wood walls (active last so its gold shows), then faces
