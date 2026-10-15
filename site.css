@@ -10,7 +10,7 @@
   --on-spark:#1f2330;
   --coral:#f0604f;
   --ok:#2f9e63;
-  --p1:#f0604f; --p2:#4f86e8; --p3:#ffc83a;
+  --p1:#f0604f; --p2:#4f86e8; --p3:#ffc83a; --p4:#2f9e63; --p5:#9b6fe0;
   --grid-empty:#ffffff;
   --line-art:#1f2330;
   --font-display:"Gaegu","Comic Sans MS","Chalkboard SE",cursive;
@@ -116,6 +116,7 @@ section{padding-block:40px}
 @media (max-width:700px){.mm-board{grid-template-columns:minmax(0,1fr)}}
 .mm-gridwrap{position:relative;max-width:440px;width:100%}
 .mm-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.mm-gridwrap{max-width:520px}
 .mm-gridwrap::after{content:"";position:absolute;top:-10px;bottom:-10px;left:calc(50% - 2px);width:4px;background:repeating-linear-gradient(var(--ink) 0 8px,transparent 8px 14px);pointer-events:none}
 .cell{aspect-ratio:1;border:2px solid var(--ink);border-radius:6px;background:var(--grid-empty);padding:0;position:relative}
 .cell.fixed{opacity:.95}
@@ -128,8 +129,12 @@ button.cell:hover{box-shadow:inset 0 0 0 3px var(--spark)}
 .swatch[aria-pressed="true"]{box-shadow:0 0 0 4px var(--paper),0 0 0 7px var(--ink)}
 .swatch.eraser{background:var(--grid-empty);font-weight:700;font-size:.7rem;color:var(--ink)}
 .levels{display:flex;gap:8px;flex-wrap:wrap}
-.lvl{font:inherit;font-weight:700;font-size:.85rem;padding:4px 12px;border-radius:999px;border:2px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
-.lvl[aria-current="true"]{background:var(--ink);color:var(--paper)}
+.lvl{font:inherit;font-weight:700;font-size:.95rem;padding:8px 16px;border-radius:999px;border:var(--stroke) solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.lvl:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.lvl:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.lvl[aria-current="true"]{background:var(--spark);color:var(--on-spark)}
+.levels-wrap{display:grid;gap:8px}
+.levels{gap:10px}
 .lvl.done::after{content:" ★"}
 .side-panel{display:grid;gap:16px}
 
@@ -138,9 +143,11 @@ button.cell:hover{box-shadow:inset 0 0 0 3px var(--spark)}
 @media (max-width:700px){.hh-board{grid-template-columns:minmax(0,1fr)}}
 .hh-svg{width:100%;max-width:340px;aspect-ratio:1;border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--note-mint)}
 .shape-pick{display:flex;gap:8px;flex-wrap:wrap}
-.shape-btn{font:inherit;font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:6px;padding:4px 12px 4px 6px;border-radius:999px;border:2px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
+.shape-btn{font:inherit;font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:6px;padding:6px 14px 6px 8px;border-radius:999px;border:var(--stroke) solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.shape-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
 .shape-btn svg{width:22px;height:22px}
-.shape-btn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.shape-btn[aria-pressed="true"]{background:var(--spark);color:var(--on-spark)}
+.shape-pick{gap:10px}
 .shape-btn .res{font-size:.8rem}
 .meter{height:22px;border:var(--stroke) solid var(--ink);border-radius:999px;overflow:hidden;background:var(--card);position:relative}
 .meter .fill{height:100%;background:var(--spark);transition:width .25s}
@@ -209,9 +216,11 @@ button.cell:hover{box-shadow:inset 0 0 0 3px var(--spark)}
 
 /* journey (play page) */
 .hosts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.host{font:inherit;font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;gap:6px;padding:4px 14px 4px 4px;border-radius:999px;border:2px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
+.host{font:inherit;font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;gap:6px;padding:4px 14px 4px 4px;border-radius:999px;border:var(--stroke) solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.host:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.hosts{gap:10px}
 .host svg{width:34px;height:34px}
-.host[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.host[aria-pressed="true"]{background:var(--spark);color:var(--on-spark)}
 .host:disabled{opacity:.45;cursor:default}
 .journey{position:relative;display:grid;gap:0}
 .stop{position:relative;display:grid;grid-template-columns:72px minmax(0,1fr);gap:20px;padding-block:8px 40px}
@@ -248,9 +257,9 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
 .pop{animation:pop .35s ease-out}
 
 /* trinket box game */
-.tb-board{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:24px;align-items:start}
+.tb-board{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:24px;align-items:start}
 @media (max-width:700px){.tb-board{grid-template-columns:minmax(0,1fr)}}
-.tb-svg{width:100%;max-width:280px;aspect-ratio:6/5;border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card)}
+.tb-canvas{width:100%;max-width:360px;height:auto;display:block;border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card)}
 
 /* robot painter */
 .rp-board{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:24px;align-items:start}
@@ -279,3 +288,9 @@ footer{border-top:var(--stroke) solid var(--ink);padding-top:20px;margin-top:24p
 @media (max-width:760px){.gg-board{grid-template-columns:minmax(0,1fr)}}
 .gg-svg{width:100%;max-width:420px;aspect-ratio:21/11;border:var(--stroke) solid var(--ink);border-radius:var(--radius);background:var(--card)}
 #ggGoal{max-width:60ch}
+
+/* roll log (ramp) */
+.log{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:1.5em}
+.log .chip{font-size:.85rem;font-weight:700;padding:3px 10px;border-radius:999px;border:2px solid var(--ink);background:var(--card);font-variant-numeric:tabular-nums}
+.log .chip.hit{background:var(--ok);color:#fff}
+.pp-controls .row .lvl{font-size:.88rem}
