@@ -212,17 +212,18 @@
           <h3 id="tbTitle">Game: Fold or flop?</h3>
           <span class="hive" id="tbScore"></span>
         </div>
-        <p>Look at the flat shape. Guess if it folds into a closed box, then watch it fold up for real.</p>
+        <p>Fold the box yourself. <strong>Tap a square</strong> to fold it up (tap again to unfold). <strong>Drag</strong> the shape to look at it from every side. When every square is folded, say what you found.</p>
         <div class="tb-board">
-          <canvas class="tb-canvas" id="tbCanvas" width="360" height="300" role="img" aria-label="Six flat squares that fold up into a box"></canvas>
+          <canvas class="tb-canvas" id="tbCanvas" width="360" height="320" role="img" aria-label="Six flat squares you can fold up into a box"></canvas>
           <div class="side-panel">
-            <p class="status" id="tbStatus" aria-live="polite">Shape 1 of 8. Will it fold into a box?</p>
+            <div class="sides" id="tbSides"><span class="eyebrow">Sides covered</span><div class="side-dots" id="tbDots"></div></div>
+            <p class="status" id="tbStatus" aria-live="polite">Shape 1 of 8. Tap the squares to fold them up.</p>
             <div class="row">
-              <button class="btn primary" id="tbYes">Yes, it makes a box</button>
-              <button class="btn" id="tbNo">No, it leaves a hole</button>
+              <button class="btn primary" id="tbYes" disabled>It made a box</button>
+              <button class="btn" id="tbNo" disabled>It left a hole</button>
             </div>
             <div class="row">
-              <button class="btn" id="tbAgain" hidden>Fold it again</button>
+              <button class="btn" id="tbAgain">Unfold all</button>
               <button class="btn" id="tbNext" hidden>Next shape &rarr;</button>
               <button class="btn" id="tbRestart" hidden>Play again</button>
             </div>
@@ -724,86 +725,92 @@ const NETS=[
   {cells:[[0,0],[1,0],[2,0],[3,0],[0,1],[3,1]], folds:false, why:'Both extra squares fold up on the same side, so they bump together. The other side has a hole.'}
 ];
 (function(){
-  const cv=document.getElementById('tbCanvas'), ctx=cv.getContext('2d'), st=document.getElementById('tbStatus'), score=document.getElementById('tbScore');
+  const cv=document.getElementById('tbCanvas'), ctx=cv.getContext('2d'), st=document.getElementById('tbStatus'), score=document.getElementById('tbScore'), dots=document.getElementById('tbDots');
   const yes=document.getElementById('tbYes'), no=document.getElementById('tbNo'), next=document.getElementById('tbNext'), restart=document.getElementById('tbRestart'), again=document.getElementById('tbAgain');
-  let i=0, right=0, answered=false, anim=null, spinExtra=0, spinner=null;
   const FACE=['#ffd76a','#f3a93a','#7fb4e8','#7cc576','#b48ce0','#f0604f'];
+  let i=0, right=0, answered=false, tree=null, nodes=[], view={spin:0.35,tilt:-0.55}, anim=null, lastFaces=[];
 
   // Build a hinge tree from the net: the square with the most neighbours is the floor; every other square hangs off a neighbour.
   function buildTree(cells){
     const key=(x,y)=>x+','+y, set=new Set(cells.map(c=>key(...c)));
     const deg=c=>[[1,0],[-1,0],[0,1],[0,-1]].filter(d=>set.has(key(c[0]+d[0],c[1]+d[1]))).length;
     const root=cells.slice().sort((a,b)=>deg(b)-deg(a))[0];
-    const nodes=new Map(); const q=[root]; nodes.set(key(...root),{cell:root,parent:null,children:[]});
-    while(q.length){ const c=q.shift(); const n=nodes.get(key(...c));
-      for(const d of [[1,0],[-1,0],[0,1],[0,-1]]){ const nb=[c[0]+d[0],c[1]+d[1]]; if(set.has(key(...nb))&&!nodes.has(key(...nb))){ const m={cell:nb,parent:n,dir:d,children:[]}; nodes.set(key(...nb),m); n.children.push(m); q.push(nb);} } }
-    return nodes.get(key(...root));
+    const map=new Map(); const q=[root]; const rootNode={cell:root,parent:null,children:[],angle:0,target:0}; map.set(key(...root),rootNode); nodes=[rootNode];
+    while(q.length){ const c=q.shift(); const n=map.get(key(...c));
+      for(const d of [[1,0],[-1,0],[0,1],[0,-1]]){ const nb=[c[0]+d[0],c[1]+d[1]]; if(set.has(key(...nb))&&!map.has(key(...nb))){ const m={cell:nb,parent:n,dir:d,children:[],angle:0,target:0}; map.set(key(...nb),m); n.children.push(m); nodes.push(m); q.push(nb);} } }
+    nodes.forEach((n,k)=>n.color=FACE[k]);
+    return rootNode;
   }
-  // 3D points for each square, then fold every hinge by angle t (0..90 degrees)
-  function rotAboutAxis(p,a,u,th){ // Rodrigues rotation of point p about axis through a with unit direction u
-    const [x,y,z]=[p[0]-a[0],p[1]-a[1],p[2]-a[2]], c=Math.cos(th), s=Math.sin(th), dot=u[0]*x+u[1]*y+u[2]*z;
+  function rot(p,a,u,th){ const [x,y,z]=[p[0]-a[0],p[1]-a[1],p[2]-a[2]], c=Math.cos(th), s=Math.sin(th), dot=u[0]*x+u[1]*y+u[2]*z;
     const cr=[u[1]*z-u[2]*y, u[2]*x-u[0]*z, u[0]*y-u[1]*x];
-    return [a[0]+x*c+cr[0]*s+u[0]*dot*(1-c), a[1]+y*c+cr[1]*s+u[1]*dot*(1-c), a[2]+z*c+cr[2]*s+u[2]*dot*(1-c)];
+    return [a[0]+x*c+cr[0]*s+u[0]*dot*(1-c), a[1]+y*c+cr[1]*s+u[1]*dot*(1-c), a[2]+z*c+cr[2]*s+u[2]*dot*(1-c)]; }
+  function subtree(n,out=[]){ out.push(n); n.children.forEach(c=>subtree(c,out)); return out; }
+  // Fold each hinge by its own angle (0..1). Children fold before parents, in the flat frame, so the axes stay simple.
+  function folded(){
+    nodes.forEach(n=>{ const [x,y]=n.cell; n.pts=[[x,y,0],[x+1,y,0],[x+1,y+1,0],[x,y+1,0]]; });
+    (function foldNode(n){ n.children.forEach(ch=>{ foldNode(ch);
+      const [px,py]=n.cell, [dx,dy]=ch.dir; let a,u;
+      if(dx===1){ a=[px+1,py,0]; u=[0,1,0]; } else if(dx===-1){ a=[px,py,0]; u=[0,1,0]; } else if(dy===1){ a=[px,py+1,0]; u=[1,0,0]; } else { a=[px,py,0]; u=[1,0,0]; }
+      const probe=rot([ch.cell[0]+0.5,ch.cell[1]+0.5,0],a,u,0.3), sign=probe[2]>0?1:-1;
+      subtree(ch).forEach(m=>{ m.pts=m.pts.map(p=>rot(p,a,u,sign*ch.angle*Math.PI/2)); }); }); })(tree);
   }
-  function foldedFaces(cells,t){
-    const root=buildTree(cells), faces=[];
-    (function collect(n,idx){ const [x,y]=n.cell; n.pts=[[x,y,0],[x+1,y,0],[x+1,y+1,0],[x,y+1,0]]; n.color=FACE[faces.length]; faces.push(n); n.children.forEach(collect); })(root);
-    function subtree(n,out=[]){ out.push(n); n.children.forEach(c=>subtree(c,out)); return out; }
-    (function foldNode(n){
-      n.children.forEach(ch=>{
-        foldNode(ch);
-        // hinge: the edge shared between n and ch, in the flat frame
-        const [px,py]=n.cell, [dx,dy]=ch.dir; let a,u;
-        if(dx===1){ a=[px+1,py,0]; u=[0,1,0]; } else if(dx===-1){ a=[px,py,0]; u=[0,1,0]; } else if(dy===1){ a=[px,py+1,0]; u=[1,0,0]; } else { a=[px,py,0]; u=[1,0,0]; }
-        // pick the rotation sense that lifts the child up (+z)
-        const probe=rotAboutAxis([ch.cell[0]+0.5,ch.cell[1]+0.5,0],a,u,0.3); const sign=probe[2]>0?1:-1;
-        subtree(ch).forEach(m=>{ m.pts=m.pts.map(p=>rotAboutAxis(p,a,u,sign*t)); });
-      });
-    })(root);
-    return faces;
-  }
-  function draw(t){
-    const n=NETS[i], faces=foldedFaces(n.cells,t*Math.PI/2), ink=css('--ink'), paper=css('--card');
+  function coveredSides(){ // how many of the six faces of the box (built on the floor square) have a square sitting on them
+    const [fx,fy]=tree.cell; const targets=[[.5,.5,0],[.5,.5,1],[0,.5,.5],[1,.5,.5],[.5,0,.5],[.5,1,.5]].map(t=>[fx+t[0],fy+t[1],t[2]]);
+    const centres=nodes.map(n=>[0,1,2].map(k=>n.pts.reduce((s,p)=>s+p[k],0)/4));
+    return targets.filter(t=>centres.some(c=>Math.hypot(c[0]-t[0],c[1]-t[1],c[2]-t[2])<0.05)).length; }
+  function allFolded(){ return nodes.every(n=>n===tree||n.angle>0.999); }
+  function draw(){
+    folded();
+    const ink=css('--ink'), paper=css('--card');
     ctx.clearRect(0,0,cv.width,cv.height); ctx.fillStyle=paper; ctx.fillRect(0,0,cv.width,cv.height);
-    // centre the model, tilt it so height shows, project
-    const all=faces.flatMap(f=>f.pts); const cx=(Math.min(...all.map(p=>p[0]))+Math.max(...all.map(p=>p[0])))/2, cy=(Math.min(...all.map(p=>p[1]))+Math.max(...all.map(p=>p[1])))/2;
-    const tilt=-0.25-0.75*t, spin=0.15+spinExtra; // top-down while flat, tilted once folded; spins slowly after folding
-    const cz=t>0.5?0.5:0;
+    const all=nodes.flatMap(f=>f.pts);
+    const cx=(Math.min(...all.map(p=>p[0]))+Math.max(...all.map(p=>p[0])))/2, cy=(Math.min(...all.map(p=>p[1]))+Math.max(...all.map(p=>p[1])))/2, cz=(Math.min(...all.map(p=>p[2]))+Math.max(...all.map(p=>p[2])))/2;
+    const {spin,tilt}=view;
     function proj(p){ let x=p[0]-cx, y=p[1]-cy, z=p[2]-cz; const x1=x*Math.cos(spin)-y*Math.sin(spin), y1=x*Math.sin(spin)+y*Math.cos(spin); const y2=y1*Math.cos(tilt)-z*Math.sin(tilt), z2=y1*Math.sin(tilt)+z*Math.cos(tilt); return [x1,y2,z2]; }
-    const raw=faces.map(f=>({f,p:f.pts.map(proj)}));
+    const raw=nodes.map(f=>({f,p:f.pts.map(proj)}));
     const xs=raw.flatMap(r=>r.p.map(q=>q[0])), ys=raw.flatMap(r=>r.p.map(q=>q[1]));
     const ext=Math.max(Math.max(...xs)-Math.min(...xs), Math.max(...ys)-Math.min(...ys))||1;
-    const S=t<0.5?Math.min(62,(cv.width*0.8)/ext):Math.max(62,(cv.height*0.45)/ext);
+    const S=Math.min(allFolded()?88:64, (Math.min(cv.width,cv.height)*0.8)/ext);
     const ox=-(Math.max(...xs)+Math.min(...xs))/2, oy=-(Math.max(...ys)+Math.min(...ys))/2;
-    const flat=raw.map(({f,p})=>({f,p:p.map(q=>[q[0]+ox,q[1]+oy,q[2]])})); flat.sort((A,B)=>{const za=A.p.reduce((s,p)=>s+p[2],0),zb=B.p.reduce((s,p)=>s+p[2],0);return za-zb;});
+    lastFaces=raw.map(({f,p})=>({f,p:p.map(q=>[cv.width/2+(q[0]+ox)*S, cv.height/2+(q[1]+oy)*S, q[2]])}));
+    lastFaces.sort((A,B)=>A.p.reduce((s,p)=>s+p[2],0)-B.p.reduce((s,p)=>s+p[2],0));
     ctx.lineJoin='round';
-    flat.forEach(({f,p})=>{
-      // shade by how much the face tilts (simple lighting)
+    lastFaces.forEach(({f,p})=>{
       const [a,b,c]=f.pts, nx=(b[1]-a[1])*(c[2]-a[2])-(b[2]-a[2])*(c[1]-a[1]), ny=(b[2]-a[2])*(c[0]-a[0])-(b[0]-a[0])*(c[2]-a[2]), nz=(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
-      const len=Math.hypot(nx,ny,nz)||1, light=0.65+0.35*Math.abs(nz/len);
-      ctx.beginPath(); p.forEach(([x,y],k)=>{ const X=cv.width/2+x*S, Y=cv.height/2+y*S; k?ctx.lineTo(X,Y):ctx.moveTo(X,Y); }); ctx.closePath();
-      ctx.fillStyle=f.color; ctx.globalAlpha=light*0.92; ctx.fill(); ctx.globalAlpha=1; ctx.strokeStyle=ink; ctx.lineWidth=3; ctx.stroke();
+      const len=Math.hypot(nx,ny,nz)||1, light=0.72+0.28*Math.abs(nz/len);
+      ctx.beginPath(); p.forEach(([x,y],k)=>k?ctx.lineTo(x,y):ctx.moveTo(x,y)); ctx.closePath();
+      ctx.fillStyle=f.color; ctx.globalAlpha=1; ctx.fill(); ctx.globalAlpha=1-light; ctx.fillStyle='#000'; ctx.fill(); ctx.globalAlpha=1;
+      ctx.strokeStyle=ink; ctx.lineWidth=3; ctx.stroke();
+      if(f===tree){ const mx=p.reduce((s,q)=>s+q[0],0)/4, my=p.reduce((s,q)=>s+q[1],0)/4; ctx.fillStyle=ink; ctx.font='bold 11px Andika, sans-serif'; ctx.textAlign='center'; ctx.fillText('floor',mx,my+4); }
     });
+    const n=coveredSides(); dots.innerHTML=[0,1,2,3,4,5].map(k=>`<span class="dot ${k<n?'on':''}"></span>`).join('')+`<span class="n">${n} of 6</span>`;
     score.textContent=`Boxes built: ${right} of ${NETS.length}`;
+    const ready=allFolded(); yes.disabled=no.disabled=!ready||answered;
+    if(ready&&!answered){ st.textContent='All folded! Drag it around and look. Did it make a closed box?'; st.className='status'; }
   }
-  function startSpin(){ stopSpin(); if(reduceMotion) return; const t0=performance.now(); (function f(now){ spinExtra=((now-t0)/1400)%(Math.PI*2); draw(1); spinner=requestAnimationFrame(f); })(t0); }
-  function stopSpin(){ if(spinner) cancelAnimationFrame(spinner); spinner=null; spinExtra=0; }
-  function play(cb){ stopSpin(); if(anim) cancelAnimationFrame(anim); const t0=performance.now(), dur=reduceMotion?0:1800;
-    (function frame(now){ const p=dur?Math.min(1,(now-t0)/dur):1, e=p<0.5?2*p*p:1-Math.pow(-2*p+2,2)/2; draw(e); if(p<1) anim=requestAnimationFrame(frame); else { anim=null; if(cb) cb(); } })(t0); }
-  function answer(saysFolds){
-    if(answered) return; answered=true; yes.disabled=no.disabled=true;
-    const n=NETS[i], ok=saysFolds===n.folds; if(ok) right++;
-    st.textContent='Watch it fold...'; st.className='status';
-    play(()=>{ st.textContent=(ok?'You got it! ':'Not this time. ')+n.why; st.className='status '+(ok?'good':'bad'); pop(st);
-      again.hidden=false; next.hidden=i>=NETS.length-1; restart.hidden=i<NETS.length-1; draw(1); startSpin();
-      if(i>=NETS.length-1) st.textContent+=` You built ${right} of ${NETS.length} boxes.`; });
+  function animate(){ if(anim) return; (function frame(){ let moving=false; nodes.forEach(n=>{ const d=n.target-n.angle; if(Math.abs(d)>0.001){ n.angle+=reduceMotion?d:d*0.18; moving=true; } else n.angle=n.target; }); draw(); anim=moving?requestAnimationFrame(frame):null; })(); }
+  // pointer: tap a square to fold/unfold it, drag to turn the view
+  let down=null, moved=false;
+  function pt(e){ const r=cv.getBoundingClientRect(); return [(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height]; }
+  function inPoly(x,y,p){ let ins=false; for(let a=0,b=p.length-1;a<p.length;b=a++){ const [xi,yi]=p[a],[xj,yj]=p[b]; if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi) ins=!ins; } return ins; }
+  cv.addEventListener('pointerdown',e=>{ down=pt(e); moved=false; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener('pointermove',e=>{ if(!down) return; const q=pt(e), dx=q[0]-down[0], dy=q[1]-down[1]; if(Math.hypot(dx,dy)>4) moved=true; if(moved){ view.spin+=dx*0.012; view.tilt=Math.max(-1.5,Math.min(0.4,view.tilt-dy*0.012)); down=q; draw(); } });
+  cv.addEventListener('pointerup',e=>{ if(!down) return; const q=pt(e); down=null; if(moved) return;
+    for(let k=lastFaces.length-1;k>=0;k--){ const {f,p}=lastFaces[k]; if(inPoly(q[0],q[1],p)){ if(f===tree){ st.textContent='That one is the floor. It stays flat; fold the others up around it.'; st.className='status'; return; } f.target=f.target>0.5?0:1; animate(); return; } } });
+  function answer(saysBox){
+    if(answered||!allFolded()) return; answered=true; yes.disabled=no.disabled=true;
+    const n=NETS[i], ok=saysBox===n.folds; if(ok) right++;
+    st.textContent=(ok?'Right! ':'Look again. ')+n.why; st.className='status '+(ok?'good':'bad'); pop(st);
+    next.hidden=i>=NETS.length-1; restart.hidden=i<NETS.length-1; draw();
+    if(i>=NETS.length-1) st.textContent+=` You built ${right} of ${NETS.length} boxes.`;
   }
   yes.addEventListener('click',()=>answer(true)); no.addEventListener('click',()=>answer(false));
-  again.addEventListener('click',()=>{ stopSpin(); draw(0); setTimeout(()=>play(startSpin),200); });
-  function fresh(){ stopSpin(); answered=false; yes.disabled=no.disabled=false; next.hidden=true; again.hidden=true; restart.hidden=true; st.textContent=`Shape ${i+1} of ${NETS.length}. Will it fold into a box?`; st.className='status'; draw(0); }
+  again.addEventListener('click',()=>{ nodes.forEach(n=>n.target=0); animate(); if(!answered){ st.textContent='Unfolded. Tap the squares to fold them up.'; st.className='status'; } });
+  function fresh(){ answered=false; tree=buildTree(NETS[i].cells); view={spin:0.35,tilt:-0.55}; next.hidden=true; restart.hidden=true; st.textContent=`Shape ${i+1} of ${NETS.length}. Tap the squares to fold them up.`; st.className='status'; draw(); }
   next.addEventListener('click',()=>{ i++; fresh(); });
   restart.addEventListener('click',()=>{ i=0; right=0; fresh(); });
-  draw(0);
+  window.__tbFaces=()=>lastFaces.map(({f,p})=>({floor:f===tree,angle:f.angle,cx:p.reduce((s,q)=>s+q[0],0)/4,cy:p.reduce((s,q)=>s+q[1],0)/4}));
+  fresh();
 })();
 
 /* ---------- Robot Painter ---------- */
