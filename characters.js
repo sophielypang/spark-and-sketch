@@ -20,7 +20,13 @@ const CAST = [
 
 function tube(d, col){ return `<path d="${d}" fill="none" stroke="${L}" stroke-width="11" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round"/>`; }
 
+// Real character art (assets/characters/<id>.png). The old stand-in drawing is kept below as drawnKid() in case a file is missing.
+const ART=new Set(['beaver','python','dolphin','falcon','spider','octopus','bee']);
 function kid(c){
+  if(!ART.has(c.id)) return drawnKid(c);
+  return `<svg viewBox="0 0 128 128" role="img" aria-label="${c.name} kid"><image href="assets/characters/${c.id}.png" width="128" height="128"/></svg>`;
+}
+function drawnKid(c){
   let back='', hoodX='', front='';
   const h=c.hood;
   switch(c.id){

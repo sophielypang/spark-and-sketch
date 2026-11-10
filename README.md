@@ -5,6 +5,7 @@ Website for Spark and Sketch, a nonprofit that teaches elementary-age kids STEM 
 ## What's here
 - `index.html` — the whole site in one page: lessons with games, the cast, the book, events, the shop and an about section.
 - `assets/character-sketches.jpg` — original character concept sketches.
+- `assets/characters/*.png` — the real character head art (512×512, transparent), drawn in Procreate at 1200×1200. `characters.js` loads these; the old stand-in drawing remains as a fallback.
 - `characters.md` — written descriptions of the seven characters.
 
 ## Lessons so far
@@ -19,6 +20,6 @@ Each lesson has a video placeholder, the big idea in steps, an at-home art proje
 
 ## Placeholders to replace
 - Lesson videos
-- Character art and names
+- Character names
 - Book cover
 - Shop links and event calendar
