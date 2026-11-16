@@ -7,7 +7,7 @@
 <meta name="description" content="Spark and Sketch teaches elementary-age kids STEM through art, with free short videos, art projects and games.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Andika:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nunito:wght@400;700;800&family=Andika:wght@400;700&display=swap">
 <link rel="stylesheet" href="site.css">
 
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -16,6 +16,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 </head>
 <body>
+<svg class="wc-defs" aria-hidden="true"><defs>
+  <filter id="wc" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="3" seed="7" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feGaussianBlur in="d" stdDeviation="1.2"/>
+  </filter>
+</defs></svg>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="index.html"><img src="/favicon-192.png" alt="" width="36" height="36"><span>Spark and Sketch</span></a>    <nav aria-label="Main">
@@ -30,7 +37,7 @@
 </header>
 
 <main class="wrap" id="top">
-  <section class="hero" style="padding-block:40px 8px">
+  <section class="hero" style="padding-block:40px 8px;text-align:left;justify-items:start">
     <span class="eyebrow">Play &amp; Learn</span>
     <h1 style="font-size:clamp(2.6rem,8vw,4.8rem)">The lesson <span class="spark">journey</span></h1>
     <p class="lede">Seven stops, one for each member of the crew. Each stop has a short video, the big idea in small steps, an art project to make at home, and a game that uses what you learned. Want a favorite host? Tap a crew member to see just their stops.</p>
