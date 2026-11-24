@@ -17,7 +17,7 @@
   --p1:#ef7f7f; --p2:#5f9ee8; --p3:#f5cf5d; --p4:#6fc49a; --p5:#b394e6;
   --grid-empty:#ffffff;
   --line-art:#4a3f35;
-  --font-display:"Gaegu","Comic Sans MS","Chalkboard SE",cursive;
+  --font-display:"Pangolin","Gaegu","Comic Sans MS","Chalkboard SE",cursive;
   --font-body:"Nunito","Andika","Trebuchet MS",system-ui,sans-serif;
   --wood:#ead1a0; --wood-ink:#b99264; --honey-ink:#4a3410; --honey-halo:#fff0c2;
   --radius:28px;
@@ -343,3 +343,8 @@ footer{border-top:1px solid var(--line);padding-top:28px;margin-top:32px;font-fa
 .steps li::before{background:var(--sun);color:#3a2f08}
 .stop .num{background:var(--sun);color:#3a2f08}
 .ledger li::before{background:var(--sun)}
+
+/* Pangolin ships in one weight: use it as drawn */
+h1,h2,h3,.logo,.eyebrow,.steps li::before,.stop .num,.hcell-face text,.book-cover .t,.status,.bubble,.char .quote,.callout .count,footer{font-weight:400}
+h1,h2{letter-spacing:0}
+.hcell-face text{font-size:15px}
