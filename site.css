@@ -62,7 +62,7 @@ section::before{content:"";position:absolute;z-index:-1;pointer-events:none;left
 #about{--wash:var(--sky);--wash2:var(--mint)}
 #play{--wash:var(--lilac);--wash2:var(--sky)}
 #cast{--wash:var(--mint);--wash2:var(--blush)}
-#book{--wash:var(--blush);--wash2:var(--lilac)}
+#book{--wash:var(--mint);--wash2:var(--blush)}
 #events{--wash:var(--sky);--wash2:var(--lilac)}
 #shop{--wash:var(--blush);--wash2:var(--sky)}
 #journey{--wash:var(--sky);--wash2:var(--lilac)}
@@ -348,3 +348,16 @@ footer{border-top:1px solid var(--line);padding-top:28px;margin-top:32px;font-fa
 h1,h2,h3,.logo,.eyebrow,.steps li::before,.stop .num,.hcell-face text,.book-cover .t,.status,.bubble,.char .quote,.callout .count,footer{font-weight:400}
 h1,h2{letter-spacing:0}
 .hcell-face text{font-size:15px}
+
+/* the book */
+.book-feature{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:760px){.book-feature{grid-template-columns:minmax(0,1fr)}}
+.book-feature .cover{display:block;max-width:340px;justify-self:center;transform:rotate(-2deg);transition:transform .2s}
+.book-feature .cover:hover{transform:rotate(0deg) scale(1.02)}
+.book-feature .cover img{width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 24px 40px -18px rgba(46,58,77,.45),0 2px 0 rgba(255,255,255,.6) inset}
+.blurb{display:grid;gap:14px;max-width:60ch;font-size:1.05rem}
+.blurb strong{font-weight:800}
+.blurb em{font-style:italic;font-weight:800}
+.blurb .row{margin-top:6px}
+.blurb .soon{color:var(--muted);font-weight:700}
+.blurb .money{margin-top:10px;padding:18px 20px;border-radius:22px;background:color-mix(in srgb,var(--sky) 55%,transparent);display:grid;gap:6px}

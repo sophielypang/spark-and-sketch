@@ -21,5 +21,4 @@ Each lesson has a video placeholder, the big idea in steps, an at-home art proje
 ## Placeholders to replace
 - Lesson videos
 - Character names
-- Book cover
 - Shop links and event calendar
