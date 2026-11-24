@@ -32,6 +32,7 @@
       <a href="index.html#events">Events</a>
       <a href="index.html#shop">Shop</a>
       <a href="index.html#about">About</a>
+      <a href="index.html#follow">Follow</a>
     </nav>
   </div>
 </header>
@@ -168,9 +169,26 @@
     <div class="merch" id="merch"></div>
   </section>
 
+  <section id="follow">
+    <div class="follow">
+      <div class="follow-text">
+        <span class="eyebrow">Follow along</span>
+        <h2>New lessons land on Instagram first</h2>
+        <p>Short videos from the crew, peeks at the book, and photos from our events. Come say hi.</p>
+        <a class="btn primary" href="https://www.instagram.com/sparkandsketch.official/" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.2" cy="6.8" r="1.3" fill="currentColor"/></svg>
+          @sparkandsketch.official
+        </a>
+        <span class="soon">More platforms coming soon</span>
+      </div>
+      <div class="follow-art" aria-hidden="true" id="followCast"></div>
+    </div>
+  </section>
+
   <footer>
     <span>Spark and Sketch is a nonprofit teaching STEM through art.</span>
     <span>Lessons are free, always.</span>
+    <a href="https://www.instagram.com/sparkandsketch.official/" target="_blank" rel="noopener">Instagram: @sparkandsketch.official</a>
   </footer>
 </main>
 
@@ -179,6 +197,7 @@
 (function(){
 const {CAST, kid, byId} = window.SS;
 document.getElementById('heroCast').innerHTML = CAST.map(kid).join('');
+document.getElementById('followCast').innerHTML = ['bee','dolphin','falcon'].map(id=>kid(byId(id))).join('');
 
 /* ---- crew hive: flat-top cells sharing walls, laid out in rows of 2, 3 and 2 ---- */
 const svg=document.getElementById('hive'), card=document.getElementById('charCard');

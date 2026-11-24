@@ -65,6 +65,7 @@ section::before{content:"";position:absolute;z-index:-1;pointer-events:none;left
 #book{--wash:var(--mint);--wash2:var(--blush)}
 #events{--wash:var(--sky);--wash2:var(--lilac)}
 #shop{--wash:var(--blush);--wash2:var(--sky)}
+#follow{--wash:var(--sky);--wash2:var(--lilac)}
 #journey{--wash:var(--sky);--wash2:var(--lilac)}
 main{position:relative;isolation:isolate;overflow-x:clip;margin-inline:-16px;padding-inline:16px}
 
@@ -362,3 +363,16 @@ h1,h2{letter-spacing:0}
 .blurb .soon{color:var(--muted);font-weight:700}
 .blurb .money{margin-top:10px;padding:18px 20px;border-radius:22px;background:color-mix(in srgb,var(--sky) 55%,transparent);display:grid;gap:6px}
 .blurb .buy-note{font-family:var(--font-display);font-size:1.2rem;color:#4a8ad6;margin-top:6px;margin-bottom:-6px}
+
+/* follow along */
+.follow{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px;align-items:center}
+@media (max-width:700px){.follow{grid-template-columns:minmax(0,1fr)}}
+.follow-text{display:grid;gap:14px;justify-items:start;max-width:52ch}
+.follow-text .soon{color:var(--muted);font-weight:700;font-size:.9rem}
+.follow-art{display:flex;justify-content:center;gap:0}
+.follow-art svg{width:clamp(90px,14vw,150px);height:auto;filter:drop-shadow(0 8px 10px rgba(46,58,77,.14))}
+.follow-art svg:nth-child(1){transform:rotate(-8deg) translateY(10px)}
+.follow-art svg:nth-child(2){transform:translateY(-6px);z-index:1}
+.follow-art svg:nth-child(3){transform:rotate(8deg) translateY(10px)}
+footer a{text-decoration:none;color:var(--ink)}
+footer a:hover{color:#4a8ad6}
